@@ -1,0 +1,98 @@
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    outline: none;
+    font-family: $Mulish;
+    box-sizing: border-box;
+}
+
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    color: var(--font);
+}
+
+a,
+span,
+p,
+b,
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: var(--font);
+}
+
+h1 {
+    font-size: 32px;
+    font-family: $Mulish;
+}
+
+h2 {
+    font-weight: 400;
+    line-height: normal;
+    font-size: 20px;
+    font-family: $Mulish;
+    
+    @media (max-width: 1600px) {
+        font-size: 18px;
+    }
+    @media (max-width: 550px) {
+        font-size: 14px;
+    }
+}
+
+a {
+    text-decoration: none;
+}
+
+@mixin noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Opera and Firefox */
+}
+
+::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: var(--light-font);
+    font-family: $Mulish;
+}
+:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: var(--light-font);
+    opacity: 1;
+    font-family: $Mulish;
+}
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: var(--light-font);
+    opacity: 1;
+    font-family: $Mulish;
+}
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: var(--light-font);
+    font-family: $Mulish;
+}
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: var(--light-font);
+    font-family: $Mulish;
+}
+::placeholder {
+    /* Most modern browsers support this now. */
+    color: var(--light-font);
+    font-family: $Mulish;
+    font-weight: 400;
+}
