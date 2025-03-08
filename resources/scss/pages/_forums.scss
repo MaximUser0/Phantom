@@ -1,0 +1,97 @@
+.Forums {
+    h1 {
+        font-family: $Rubik;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 32px;
+        margin: 3vw 8vw 2vw 8vw;
+    }
+    .list {
+        border-top: 1px solid #22226b;
+        & > div {
+            border-bottom: 1px solid #22226b;
+            width: 100%;
+            padding: 1vw 8vw;
+            display: grid;
+            grid-template-columns: min-content 1fr max-content max-content;
+            gap: 50px;
+            & > img {
+                margin: auto;
+            }
+            .info {
+                h2 {
+                    font-family: $Rubik;
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 16px;
+                    letter-spacing: 0.1em;
+                }
+                p {
+                    font-family: $Raleway;
+                    font-weight: 400;
+                    font-size: 12px;
+                    letter-spacing: 0.1em;
+                    margin-top: 10px;
+                    max-width: 750px;
+                }
+            }
+            .messages {
+                padding-right: 8vw;
+                h3 {
+                    font-family: $Raleway;
+                    font-weight: 400;
+                    font-size: 36px;
+                    letter-spacing: 0.1em;
+                }
+                p {
+                    font-family: $Raleway;
+                    font-weight: 400;
+                    font-size: 12px;
+                    letter-spacing: 0.1em;
+                    margin-top: 10px;
+                    max-width: 750px;
+                    text-align: center;
+                    margin-right: 3px;
+                }
+            }
+            .owner {
+                img {
+                    width: 46px;
+                    height: 40px;
+                    border-radius: 5px;
+                    object-fit: cover;
+                }
+                p {
+                    font-family: $Raleway;
+                    font-weight: 700;
+                    font-size: 14px;
+                    letter-spacing: 0.1em;
+                    margin-top: 4px;
+                }
+                .date {
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+}
+.pagination {
+    margin: auto;
+    display: flex;
+    border-bottom: 1px solid var(--blue);
+    width: max-content;
+    gap: 3px;
+    margin-top: 3vw;
+    margin-bottom: 2vw;
+
+    p {
+        font-family: $Raleway;
+        font-weight: 400;
+        font-size: 20px;
+        color: var(--blue);
+        padding: 10px 12px;
+    }
+    .active {
+        border-bottom: 4px solid var(--blue);
+    }
+}

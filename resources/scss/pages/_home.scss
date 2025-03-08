@@ -1,0 +1,498 @@
+.Home {
+    padding: 2vw 14vw;
+    width: 100%;
+    overflow: hidden;
+
+    .FindTeam {
+        margin-top: 8vw;
+        & > img {
+            height: 18vw;
+        }
+        p {
+            font-weight: 600;
+            font-family: $Raleway;
+            font-size: 24px;
+            width: 730px;
+            max-width: 46vw;
+            letter-spacing: 0.1em;
+            margin: 1.5vw 0 3vw 4px;
+        }
+        div {
+            display: flex;
+            gap: 1vw;
+            button {
+                border: 3px solid var(--blue);
+                background-color: transparent;
+                color: var(--blue);
+                border-radius: 20px;
+                font-size: 32px;
+                font-weight: 600;
+                letter-spacing: 0.1em;
+                &:first-child {
+                    padding: 0.8vw 1.7vw;
+                }
+                &:last-child {
+                    padding: 0.8vw 1vw;
+                    background-color: var(--blue);
+                }
+            }
+        }
+        .big-image {
+            img:first-child {
+                position: absolute;
+                right: 8.5vw;
+                top: 1vw;
+                width: 31.5vw;
+                z-index: 2;
+            }
+            img:last-child {
+                position: absolute;
+                right: 3vw;
+                top: 0;
+                width: 53vw;
+                z-index: -1;
+                filter: blur(50px);
+            }
+            @media (max-width: 1720px) {
+                img:first-child {
+                    right: 9.5vw;
+                    top: 8vw;
+                }
+                img:last-child {
+                    right: 3vw;
+                    top: 6vw;
+                    width: 53vw;
+                }
+            }
+            @media (max-width: 1200px) {
+                img:first-child {
+                    top: 148px;
+                }
+                img:last-child {
+                    top: 123px;
+                }
+            }
+        }
+    }
+    .SocialNetworks {
+        position: fixed;
+        left: 5vw;
+        top: 40vh;
+        display: flex;
+        flex-direction: column;
+        width: 42px;
+        gap: 15px;
+        z-index: 3;
+        img:first-child {
+            width: 56px;
+            margin-left: -4px;
+        }
+    }
+    .Block2 {
+        background-image: url(../../../public/img/home_image2.svg);
+        padding-top: 13vw;
+        padding-bottom: 12vw;
+        margin-top: 5vw;
+        height: fit-content;
+        width: 110%;
+        padding-right: 10%;
+        display: grid;
+        grid-template-columns: 1fr 430px;
+        background-size: 110%;
+        background-position-x: 23%;
+        background-position-y: 1vw;
+        background-repeat: no-repeat;
+        @media (max-width: 1650px) {
+            background-position-x: 23%;
+            background-position-y: 50px;
+            grid-template-columns: 3fr 2fr;
+        }
+        @media (max-width: 1500px) {
+            background-position-x: 56%;
+            background-position-y: 115px;
+            display: flex;
+            flex-direction: column-reverse;
+            padding-right: 0;
+            width: 110%;
+            background-size: 124%;
+            .right {
+                margin-bottom: 40px;
+            }
+        }
+
+        h3,
+        h2 {
+            font-family: $Rubik;
+            font-weight: 700;
+            font-size: 36px;
+            letter-spacing: 0.1em;
+            margin-bottom: 1vw;
+            span {
+                font-family: $Rubik;
+                color: var(--blue);
+            }
+        }
+        h2 {
+            font-size: 64px;
+            margin-bottom: 1vw;
+        }
+        .left {
+            max-width: 651px;
+            p {
+                margin-bottom: 3vw;
+                opacity: 70%;
+                letter-spacing: 0.1em;
+            }
+        }
+        .right {
+            h3 span {
+                color: var(--pink);
+            }
+        }
+        @media (max-width: 1200px) {
+            background-position-x: 52%;
+            background-position-y: 171px;
+            .left {
+                max-width: 590px;
+            }
+        }
+    }
+    .WhyBlock {
+        margin-top: 5vw;
+        position: relative;
+        h2 {
+            font-family: $Rubik;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            font-size: 64px;
+            margin-bottom: 1vw;
+            span {
+                color: var(--blue);
+                font-family: $Rubik;
+            }
+        }
+        .back {
+            position: absolute;
+            top: 50px;
+            left: -4.5vw;
+            width: 80vw;
+            z-index: -1;
+        }
+        .astronaut {
+            position: absolute;
+            top: 0px;
+            left: -12vw;
+            width: 30vw;
+            z-index: 2;
+        }
+        & > div {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2vw;
+            margin: 7vw auto 0 auto;
+            width: fit-content;
+            & > div {
+                background: rgba(196, 196, 196, 0.01);
+                box-shadow: inset 0px -80px 65px rgba(247, 3, 199, 0.2),
+                    inset 0px 1px 40px rgba(247, 3, 199, 0.2),
+                    inset 0px 4px 16px rgba(233, 233, 233, 0.2);
+                backdrop-filter: blur(25px);
+                border-radius: 10px;
+                padding: 2.5vw 2vw;
+                width: 273px;
+                h3 {
+                    font-family: $Rubik;
+                    font-weight: 700;
+                    letter-spacing: 0.1em;
+                    font-size: 24px;
+                    margin-bottom: 1vw;
+                    color: var(--pink);
+                }
+                p {
+                    font-family: $Raleway;
+                    font-weight: 600;
+                    font-size: 16px;
+                }
+                .blue {
+                    color: var(--light-blue);
+                }
+            }
+            & > button {
+                width: 273px;
+                background-color: transparent;
+                color: var(--pink);
+                border: 3px solid var(--pink);
+                border-radius: 20px;
+                padding: 0.8vw 1.7vw;
+                font-weight: 600;
+                font-size: 20px;
+                letter-spacing: 0.1em;
+            }
+        }
+        @media (max-width: 1700px) {
+            & > div {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .back {
+                top: 10vw;
+                left: 0;
+                height: 800px;
+                width: auto;
+            }
+            .astronaut {
+                top: 200px;
+                right: 42vw;
+                left: auto;
+                width: 700px;
+            }
+        }
+    }
+    .UserCountBlock {
+        margin-top: 8vw;
+        position: relative;
+        padding: 6vw 0 8vw 0;
+
+        h2 {
+            font-family: $Rubik;
+            font-weight: 600;
+            font-size: 96px;
+            max-width: 700px;
+            span {
+                color: var(--blue);
+                font-family: $Rubik;
+            }
+        }
+        hr {
+            border-top: 2px solid var(--blue);
+            max-width: 565px;
+            width: 100%;
+            margin: 1vw 0;
+        }
+        p {
+            font-family: $Raleway;
+            font-weight: 700;
+            font-size: 32px;
+            letter-spacing: 0.1em;
+            margin-left: 8px;
+            span {
+                color: var(--blue);
+                font-family: $Raleway;
+            }
+        }
+
+        & > img {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100%;
+            max-width: 986px;
+            height: auto;
+            z-index: -1;
+        }
+        @media (max-width: 1700px) {
+            padding-bottom: 12vw;
+        }
+        @media (max-width: 1400px) {
+            margin-top: 15vw;
+            padding: 0 0 8vw 0;
+            h2 {
+                max-width: 100%;
+                z-index: 2;
+            }
+            hr {
+                z-index: -1;
+                max-width: 100%;
+                margin-top: -8px;
+            }
+            & > img {
+                margin-top: -4vw;
+                position: relative;
+                z-index: 1;
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+    }
+    .TakeTheSurveyBlock {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7vw;
+        margin: auto;
+        max-width: 1200px;
+        padding: 5vw 0 8vw 0;
+        p {
+            font-family: $Raleway;
+            font-weight: 600;
+            font-size: 24px;
+            margin-top: auto;
+        }
+        h3 {
+            font-family: $Rubik;
+            font-weight: 600;
+            font-size: 32px;
+            margin-top: auto;
+            span {
+                font-family: $Rubik;
+                color: var(--blue);
+            }
+        }
+        & > div {
+            display: flex;
+            gap: 10px;
+            img {
+                height: 148px;
+            }
+        }
+        @media (max-width: 1350px) {
+            gap: 50px;
+        }
+        @media (max-width: 1100px) {
+            display: flex;
+            flex-direction: column-reverse;
+            & > div {
+                gap: 50px;
+            }
+        }
+    }
+    .GamesBlock {
+        background: linear-gradient(
+            90.54deg,
+            #6445fb 0.52%,
+            rgba(59, 41, 149, 0.2) 69.92%
+        );
+        border-radius: 20px;
+        padding: 3vw;
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        gap: 3vw;
+        h2 {
+            font-family: $Rubik;
+            font-weight: 600;
+            font-size: 32px;
+            line-height: 38px;
+            margin-bottom: 2vw;
+            width: 130%;
+            span {
+                color: var(--pink);
+                font-family: $Rubik;
+            }
+        }
+        & > div {
+            & > img {
+                max-width: 730px;
+                margin-top: -4.5vw;
+                width: 105%;
+            }
+            & > div {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1vw;
+                width: min-content;
+                img {
+                    width: 143px;
+                    height: 78px;
+                }
+            }
+        }
+        p {
+            font-family: $Raleway;
+            font-weight: 400;
+            font-size: 16px;
+            margin-top: 1.2vw;
+            line-height: 18.78px;
+        }
+    }
+    .ChatBlock {
+        margin: 2vw 0;
+        display: grid;
+        grid-template-columns: 1fr min-content;
+        h2 {
+            font-family: $Rubik;
+            font-weight: 600;
+            font-size: 96px;
+            margin-bottom: 1vw;
+            span {
+                font-family: $Rubik;
+                color: var(--blue);
+            }
+        }
+        p {
+            font-family: $Raleway;
+            font-weight: 500;
+            font-size: 16px;
+        }
+        img {
+            max-width: 730px;
+        }
+        & > div {
+            margin: auto 0;
+        }
+    }
+    .JoinToCommunityBlock {
+        position: relative;
+        margin-bottom: 5vw;
+        & > div {
+            background: linear-gradient(
+                90deg,
+                rgba(145, 2, 117, 0.1) 0%,
+                #f703c7 100%
+            );
+            border-radius: 20px;
+            width: 100%;
+            padding: 3.5vw;
+            p {
+                font-family: $Rubik;
+                font-weight: 600;
+                font-size: 32px;
+                max-width: calc(600px + 2vw);
+                margin: auto;
+                padding-right: 2vw;
+                letter-spacing: normal;
+
+                img {
+                    width: 142px;
+                    height: auto;
+                    margin-bottom: -5px;
+                }
+            }
+        }
+        .game-over {
+            position: absolute;
+            left: -8vw;
+            top: -5vw;
+            width: 455px;
+            height: auto;
+            max-width: 24vw;
+        }
+        .art {
+            position: absolute;
+            right: -8vw;
+            bottom: -1vw;
+            width: 683px;
+            height: auto;
+            max-width: 36vw;
+        }
+        button {
+            box-sizing: border-box;
+            border: 3px solid #f703c7;
+            border-radius: 20px;
+            background: transparent;
+            font-family: $Raleway;
+            font-weight: 600;
+            font-size: 20px;
+            letter-spacing: 0.1em;
+            color: #f703c7;
+            margin: 2vw 0 2vw calc((100% - (600px + 2vw)) / 2);
+            padding: 14px 60px;
+        }
+        @media (max-width: 1430px) {
+            & > div p {
+                max-width: 420px;
+                padding-right: 0;
+            }
+            button {
+                margin: 2vw 0 2vw calc((100% - 420px) / 2);
+            }
+        }
+    }
+}

@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
-export default function Forum() {
-  return (
-    <div>Forum</div>
-  )
+export default function Forums() {
+    return <div>Forum</div>;
 }

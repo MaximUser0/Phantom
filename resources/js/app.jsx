@@ -35,7 +35,7 @@ export default function App() {
                 <Route path="/team/:id" element={<Team />} />
                 <Route path="/game" element={<Games />} />
                 <Route path="/game/:id" element={<Game />} />
-                <Route path="/forums" element={<Forums />} />
+                <Route path="/forum" element={<Forums />} />
                 <Route path="/forum/:id" element={<Forum />} />
                 <Route path="/chat/:id" element={<Chat />} />
                 <Route path="/profile" element={<Profile />} />
@@ -44,6 +44,7 @@ export default function App() {
                 <Route path="/survey" element={<Survay />} />
                 <Route path="/admin-panel" element={<AdminPanel />} />
             </Routes>
+            <Footer />
         </div>
     );
 }

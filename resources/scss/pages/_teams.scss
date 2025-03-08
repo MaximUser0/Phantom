@@ -1,0 +1,55 @@
+.Teams {
+    margin: 3.5vw 8vw;
+    h1 {
+        font-family: $Rubik;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 32px;
+        margin-bottom: 2vw;
+    }
+    & > div {
+        display: grid;
+        grid-template-columns: repeat(4, max-content);
+        gap: 1vw;
+        & > div {
+            display: flex;
+            gap: 1vw;
+            background: var(--blue);
+            border-radius: 10px;
+            padding: 1vw;
+            & > img {
+                object-fit: cover;
+                width: 92px;
+                height: 100%;
+                border-radius: 10px;
+            }
+            h2 {
+                font-family: $Raleway;
+                font-style: normal;
+                font-weight: 700;
+                font-size: 16px;
+                letter-spacing: 0.1em;
+                margin-bottom: 1vw;
+            }
+            p {
+                font-family: $Raleway;
+                font-weight: 400;
+                font-size: 12px;
+                letter-spacing: 0.1em;
+                max-width: 220px;
+            }
+            button {
+                background: #01011e;
+                border-radius: 5px;
+                font-family: $Raleway;
+                font-weight: 700;
+                font-size: 12px;
+                letter-spacing: 0.1em;
+                color: #ffffff;
+                margin-bottom: 5px;
+                margin-top: 1.5vw;
+                padding: 0.5vw 2.6vw;
+            }
+        }
+    }
+}

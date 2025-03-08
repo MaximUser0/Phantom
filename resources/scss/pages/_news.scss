@@ -1,0 +1,49 @@
+.News {
+    margin: 3.5vw 8vw;
+    h1 {
+        font-family: $Rubik;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 32px;
+        margin-bottom: 2vw;
+    }
+    & > div {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1150px;
+        gap: 2vw;
+        & > div {
+            img {
+                object-fit: cover;
+                width: 100%;
+                height: 148px;
+                border-radius: 10px;
+                margin-bottom: 1vw;
+            }
+            h2 {
+                font-family: $Raleway;
+                font-style: normal;
+                font-weight: 700;
+                font-size: 16px;
+                letter-spacing: 0.1em;
+                margin-bottom: 1vw;
+                color: #ffffff;
+            }
+            p {
+                font-family: $Raleway;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                letter-spacing: 0.1em;
+                color: #ffffff;
+            }
+        }
+    }
+    &>img{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: auto;
+        width: 37vw;
+    }
+}

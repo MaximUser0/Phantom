@@ -1,0 +1,19 @@
+.Header {
+    display: flex;
+    margin-left: 8vw;
+    margin-top: 2vw;
+    gap: 50px;
+    & > a {
+        font-weight: 600;
+        font-size: 24px;
+        margin: auto 0;
+        letter-spacing: 0.1em;
+        & > img {
+            margin-right: 60px;
+        }
+    }
+
+    .active {
+        text-decoration: underline;
+    }
+}

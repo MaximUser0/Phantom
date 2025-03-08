@@ -1,3 +1,143 @@
 .Profile {
-    
+    padding: 5vw 0 10vw 18.6vw;
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    gap: 5vw;
+    position: relative;
+    overflow: hidden;
+    .buttons {
+        width: min-content;
+        position: relative;
+        & > div {
+            position: relative;
+            width: 250px;
+            margin-bottom: 10px;
+
+            img {
+                width: 250px;
+                height: 339px;
+                border-radius: 10px;
+                object-fit: cover;
+            }
+            .right-top {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+            .left-bottom {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+            }
+        }
+
+        button {
+            border: 2px solid var(--blue);
+            background-color: var(--blue);
+            color: #fff;
+            width: 100%;
+            border-radius: 10px;
+            font-family: $Rubik;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 0.6vw;
+            margin: 7px 0;
+        }
+        .light-button {
+            background-color: transparent;
+        }
+    }
+    .info {
+        .name {
+            display: flex;
+            h2 {
+                font-family: $Rubik;
+                font-weight: 600;
+                font-size: 32px;
+                margin-right: 28px;
+            }
+            p {
+                font-family: $Raleway;
+                font-weight: 600;
+                font-size: 16px;
+                letter-spacing: 0.1em;
+                margin-top: 5px;
+                color: var(--blue);
+            }
+        }
+        & > p {
+            font-family: $Raleway;
+            font-weight: 400;
+            font-size: 16px;
+            letter-spacing: 0.1em;
+            margin: 2.2vw 0 1.5vw 0;
+            max-width: 610px;
+        }
+        .user {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 2vw;
+            p {
+                font-family: $Raleway;
+                font-weight: 600;
+                font-size: 16px;
+                letter-spacing: 0.1em;
+            }
+        }
+        .games {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 40px;
+            row-gap: 10px;
+            max-width: 530px;
+            h3 {
+                font-family: $Raleway;
+                font-weight: 600;
+                font-size: 16px;
+                letter-spacing: 0.1em;
+                font-style: normal;
+            }
+            p {
+                font-family: $Raleway;
+                font-weight: 400;
+                font-size: 16px;
+                letter-spacing: 0.1em;
+            }
+        }
+        .summary {
+            display: flex;
+            & > div {
+                border: 2px solid var(--blue);
+                border-radius: 10px;
+                padding: 1vw 2vw 0.8vw 2vw;
+                width: max-content;
+                margin: 1.8vw 1vw 1.8vw 0;
+                p {
+                    font-family: $Raleway;
+                    font-weight: 600;
+                    font-size: 24px;
+                    letter-spacing: 0.1em;
+                    color: var(--blue);
+                    text-align: center;
+                }
+                :first-child {
+                    margin-bottom: 5px;
+                }
+            }
+        }
+    }
+    .gradient {
+        position: absolute;
+        left: -398px;
+        top: -170px;
+        z-index: -1;
+    }
+    .back_image {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        height: 26vw;
+        width: auto;
+    }
 }

@@ -1,16 +1,13 @@
 <?php
 
-use App\Http\Controllers\ArticleCommentController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\FriendController;
-use App\Http\Controllers\FundController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
 Route::post('signup', [AuthController::class, 'create']);
 Route::post('login', [AuthController::class, 'login']);
 
@@ -31,9 +29,6 @@ Route::get('news/{id}', [NewsController::class, 'show']);
 Route::get('article', [ArticleController::class, 'index']);
 Route::get('article/{id}', [ArticleController::class, 'show']);
 Route::get('forum', [ForumController::class, 'index']);
-Route::get('fund', [FundController::class, 'index']);
-Route::get('fund/{id}', [FundController::class, 'show']);
-Route::get('find', [FriendController::class, 'find']);
 
 Route::middleware('auth:sanctum')->group(
     function () {
@@ -71,10 +66,6 @@ Route::middleware('auth:sanctum')->group(
         Route::delete('forum/out/{id}', [ForumController::class, 'outFrom']);
         Route::patch('forum', [ForumController::class, 'update']);
 
-        Route::get('fundMy', [FundController::class, 'showMy']);
-        Route::delete('fundMy', [FundController::class, 'deleteMy']);
-        Route::post('fund', [FundController::class, 'addMy']);
-
         Route::middleware('admin')->group(
             function () {
                 Route::post('news', [NewsController::class, 'create']);
@@ -87,14 +78,11 @@ Route::middleware('auth:sanctum')->group(
                 Route::delete('article/{id}', [ArticleController::class, 'delete']);
                 Route::delete('article/comment/{id}', [ArticleController::class, 'deleteComment']);
 
-                Route::delete('fund/{id}', [FundController::class, 'delete']);
-
                 Route::get('users', [UserController::class, 'indexAll']);
                 Route::get('user/block/{id}', [UserController::class, 'block']);
 
                 Route::delete('forum/{id}', [ForumController::class, 'delete']);
                 Route::post('forum', [ForumController::class, 'create']);
-
             }
         );
     }
