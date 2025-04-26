@@ -11,36 +11,22 @@ export default function SingUp() {
 
     function signUp() {
         const body = {
-            name: document.getElementById("sing-up-name").value,
-            number_phone: document.getElementById("sing-up-number").value,
             password: document.getElementById("sing-up-password").value,
-            password_repeat: document.getElementById("sing-up-password-rep")
+            password_repeat: document.getElementById("sing-up-password-repeat")
                 .value,
-            accept: document.getElementById("sing-up-accept").checked,
             email: document.getElementById("sing-up-email").value,
+            accept: document.getElementById("sing-up-accept").checked,
             recaptcha_token: null,
         };
         let error_check =
             body.password != body.password_repeat
-                ? { input: 5, message: "Пароли должны совпадать" }
+                ? { input: 3, message: "Пароли должны совпадать" }
                 : !body.accept
-                ? { input: 6, message: "Согласие на обработку обязательно" }
+                ? { input: 4, message: "Согласие на обработку обязательно" }
                 : body.password.length < 8
-                ? { input: 4, message: "Пароль должен быть больше 8 символов" }
+                ? { input: 2, message: "Пароль должен быть больше 8 символов" }
                 : !/^[\w.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(body.email)
-                ? { input: 3, message: "Неправильный формат почты" }
-                : !/^[а-яА-Яa-zA-Z0-9]+ +[а-яА-Яa-zA-Z0-9]+$/.test(body.name)
-                ? {
-                      input: 1,
-                      message:
-                          "Имя и фамилия должны писаться через пробел, без спец. символов",
-                  }
-                : !/[+0-9]{11,15}/.test(body.number_phone)
-                ? {
-                      input: 2,
-                      message:
-                          "Номер телефона должен содежать тольцо цифры и '+'",
-                  }
+                ? { input: 1, message: "Неправильный формат почты" }
                 : { input: 0, message: "" };
         setError(error_check);
         if (error_check.input > 0) return;
@@ -49,7 +35,7 @@ export default function SingUp() {
             const token = await grecaptcha.enterprise.execute(
                 "6LfzjLAqAAAAAASZvgT8XW8DxlDdta9OiZr5cUzR",
                 {
-                    action: "LOGIN",
+                    action: "SIGNUP",
                 }
             );
 
@@ -61,7 +47,7 @@ export default function SingUp() {
                     console.log(response.data);
                     dispatch(setToken(response.data.token));
                     dispatch(setUser(response.data.user));
-                    navigate("/profile");
+                    navigate("../survey");
                 })
                 .catch((error) => {
                     console.log(error.response);
@@ -76,7 +62,7 @@ export default function SingUp() {
                         typeof error.response.data.errors.email !== "undefined"
                     ) {
                         setError({
-                            input: 3,
+                            input: 1,
                             message: "Такая почта уже существует",
                         });
                         return;
@@ -86,74 +72,68 @@ export default function SingUp() {
     }
     return (
         <div className="SingUp">
-            <div className="form">
+            <form
+                className="form"
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        signUp();
+                    }
+                }}
+                onChange={() => setError({ input: 0, message: "" })}
+            >
                 <h1>Регистрация</h1>
-                <input
-                    type="text"
-                    placeholder="Имя и фамилия"
-                    id="sing-up-name"
-                    className={error.input == 1 ? "error" : ""}
-                />
-                <input
-                    type="text"
-                    placeholder="Номер телефона"
-                    id="sing-up-number"
-                    className={error.input == 2 ? "error" : ""}
-                />
+                <Link to={"../login"} className="desktop-only">
+                    Войти в аккаунт
+                </Link>
+                <label>Почта</label>
                 <input
                     type="email"
-                    placeholder="E-mail"
+                    placeholder="Почта"
                     id="sing-up-email"
-                    className={error.input == 3 ? "error" : ""}
+                    className={error.input == 1 ? "error" : ""}
                 />
+                <label>Пароль</label>
                 <input
                     type="password"
                     placeholder="Пароль"
                     id="sing-up-password"
-                    className={error.input == 4 ? "error" : ""}
+                    className={error.input == 2 ? "error" : ""}
                 />
+                <label>Повторите пароль</label>
                 <input
                     type="password"
-                    placeholder="Повтор пароля"
-                    id="sing-up-password-rep"
-                    className={error.input == 5 ? "error" : ""}
+                    placeholder="Пароль"
+                    id="sing-up-password-repeat"
+                    className={error.input == 3 ? "error" : ""}
                 />
-                <div className="checkbox">
+                <div>
                     <input
                         type="checkbox"
                         id="sing-up-accept"
-                        className={error.input == 6 ? "error" : ""}
+                        className={error.input == 4 ? "error" : ""}
                     />
-                    <label>Согласие на обработку персональных данных</label>
-                    <button
-                        onClick={() => {
-                            signUp();
-                        }}
-                    >
-                        Регистрация
-                    </button>
+                    <label>
+                        Согласие на обработку персональных данных и
+                        пользовательское соглашение
+                    </label>
                 </div>
+                <button
+                    onClick={(e) => {
+                        e.preventDefault();
+                        signUp();
+                    }}
+                >
+                    Зарегистрироваться
+                </button>
+                <Link to={"../login"} className="mobile-only">
+                    Войти в аккаунт
+                </Link>
                 {error.input != 0 ? (
                     <p className="error-message">{error.message}</p>
                 ) : (
                     ""
                 )}
-                <p className="already">
-                    Уже есть аккаунт? <Link to="../login">Войти</Link>
-                </p>
-            </div>
-            <div className="right">
-                <div>
-                    <h2>Добро пожаловать!</h2>
-                    <p>
-                        Чтобы оставаться на связи с нами, пожалуйста, войдите в
-                        систему, указав свои личные данные
-                    </p>
-                    <Link to="../login">
-                        <button>Войти</button>
-                    </Link>
-                </div>
-            </div>
+            </form>
         </div>
     );
 }

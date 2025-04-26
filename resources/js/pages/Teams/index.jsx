@@ -72,7 +72,7 @@ export default function Teams() {
             <h1>Команды</h1>
             <div>
                 {teams.map((value, i) => (
-                    <div key={"teams_page_team_" + i}>
+                    <div key={"teams-page-team-" + i}>
                         <img alt="Изображение команды" src={value.image} />
                         <div>
                             <h2>{value.title}</h2>

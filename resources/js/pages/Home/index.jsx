@@ -1,70 +1,25 @@
 import React from "react";
-import image from "../assets/img/phantom_text.svg";
-import text from "../assets/img/phantom_text_small.svg";
-import image1 from "../assets/img/home_image.svg";
-import image2 from "../assets/img/home_image2.png";
-import image3 from "../assets/img/home_image3.png";
-import image4 from "../assets/img/home_image4.png";
-import image5 from "../assets/img/home_image5.png";
-import image6 from "../assets/img/home_image6.png";
-import image7 from "../assets/img/home_image7.png";
-import image8 from "../assets/img/home_image8.png";
-import game from "../assets/img/game1.png";
-import game1 from "../assets/img/game2.png";
-import game2 from "../assets/img/game3.png";
-import game3 from "../assets/img/game4.png";
-import game4 from "../assets/img/game5.png";
-import game5 from "../assets/img/game6.png";
-import game6 from "../assets/img/game7.png";
-import game7 from "../assets/img/game8.png";
-import game8 from "../assets/img/game9.png";
-import logo from "../assets/img//logo.svg";
-import shadow from "../assets/img/shadow.svg";
-import arrow from "../assets/img/arrow_font.svg";
-import WhatsApp from "../assets/img/WhatsApp.svg";
-import GitHub from "../assets/img/GitHub.svg";
-import Telegram from "../assets/img/Telegram.svg";
-import VK from "../assets/img/VK.svg";
+import text from "../../assets/img/phantom_text_small.svg";
+import image2 from "../../assets/img/home_image2.png";
+import image2_mobile from "../../assets/img/home_image2_mobile.png";
+import image3 from "../../assets/img/home_image3.png";
+import image4 from "../../assets/img/home_image4.png";
+import image6 from "../../assets/img/home_image6.png";
+import image7 from "../../assets/img/home_image7.png";
+import image8 from "../../assets/img/home_image8.png";
+import image_block2_mobile from "../../../../public/img/home_image2_mobile.png";
+import logo from "../../assets/img//logo.svg";
+import { useNavigate } from "react-router-dom";
+import GameBlock from "./GameBlock";
+import SocialNetworks from "./SocialNetworks";
+import FindTeam from "./FindTeam";
 
 export default function Home() {
-    const games = [
-        game,
-        game1,
-        game2,
-        game3,
-        game4,
-        game5,
-        game6,
-        game7,
-        game8,
-    ];
+    const navigate = useNavigate();
     return (
         <div className="Home">
-            <div className="FindTeam">
-                <img alt="Фоновое изображение" src={image} />
-                <p>
-                    ваш идеальный форум для поиска тиммейтов в любимые игры! Мы
-                    объединяем геймеров со всего мира, чтобы вы могли легко
-                    находить единомышленников для совместных приключений,
-                    стратегий и побед.
-                </p>
-                <div>
-                    <button>Найти команду</button>
-                    <button>
-                        <img alt="Перейти" src={arrow} />
-                    </button>
-                </div>
-                <div className="big-image">
-                    <img alt="Фоновое изображение" src={image1} />
-                    <img alt="Фоновое изображение" src={shadow} />
-                </div>
-            </div>
-            <div className="SocialNetworks">
-                <img alt="WhatsApp" src={WhatsApp} />
-                <img alt="GitHub" src={GitHub} />
-                <img alt="Telegram" src={Telegram} />
-                <img alt="VK" src={VK} />
-            </div>
+            <FindTeam />
+            <SocialNetworks />
             <div className="Block2">
                 <div className="left">
                     <h3>
@@ -94,6 +49,11 @@ export default function Home() {
                         Для <span>успешной</span> игры
                     </h3>
                 </div>
+                <img
+                    alt="Фоновое изображение"
+                    src={image_block2_mobile}
+                    className="mobile-image"
+                />
             </div>
             <div className="WhyBlock">
                 <h2>
@@ -142,6 +102,7 @@ export default function Home() {
                 </div>
 
                 <img className="back" alt="Фон" src={image2} />
+                <img className="back-mobile" alt="Фон" src={image2_mobile} />
                 <img className="astronaut" alt="Космонавт" src={image3} />
             </div>
             <div className="UserCountBlock">
@@ -167,35 +128,7 @@ export default function Home() {
                     </h3>
                 </div>
             </div>
-            <div className="GamesBlock">
-                <div>
-                    <h2>
-                        Обширная игровая <span>Библиотека</span>
-                    </h2>
-                    <div>
-                        {games.map((value, i) => (
-                            <img
-                                alt="Игра"
-                                src={value}
-                                key={"home-game-" + i}
-                            />
-                        ))}
-                    </div>
-                </div>
-                <div>
-                    <img alt="Игровой арт" src={image5} />
-                    <p>
-                        Погрузитесь в мир бесконечных возможностей с нашей
-                        обширной игровой библиотекой! Мы собрали для вас
-                        разнообразные игры различных жанров, от классических до
-                        новейших релизов, чтобы каждый геймер мог найти что-то
-                        по своему вкусу. Наша платформа позволяет легко и быстро
-                        находить единомышленников для совместных приключений,
-                        будь то увлекательные многопользовательские сражения или
-                        кооперативные квесты.
-                    </p>
-                </div>
-            </div>
+            <GameBlock />
             <div className="ChatBlock">
                 <div>
                     <h2>
@@ -223,7 +156,13 @@ export default function Home() {
                         <img alt="Чат" src={text} />
                     </p>
                 </div>
-                <button>Регистрация</button>
+                <button
+                    onClick={() => {
+                        navigate("../login");
+                    }}
+                >
+                    Регистрация
+                </button>
             </div>
         </div>
     );

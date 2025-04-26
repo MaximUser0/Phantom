@@ -1,0 +1,356 @@
+.Survey {
+    width: 100%;
+    & > img {
+        position: absolute;
+        top: 70px;
+        left: 8vw;
+        @media (max-width: 660px) {
+            width: 64px;
+            top: 50px;
+            left: 14vw;
+        }
+    }
+    & > div {
+        width: max-content;
+        margin: auto;
+        margin-top: 100px;
+        padding-bottom: 70px;
+        display: flex;
+        flex-direction: column;
+
+        h1 {
+            font-family: $Rubik;
+            font-weight: 600;
+            font-size: 48px;
+            padding-bottom: 3vw;
+            text-align: center;
+            span {
+                font-family: $Rubik;
+                font-weight: 600;
+                color: var(--blue);
+            }
+        }
+        h2 {
+            font-family: $Rubik;
+            font-weight: 600;
+            font-size: 36px;
+            padding-bottom: 2.4vw;
+            text-align: center;
+            span {
+                font-family: $Rubik;
+                font-weight: 600;
+                color: var(--blue);
+            }
+        }
+
+        button {
+            background: #6445fb;
+            border-radius: 10px;
+            font-family: $Rubik;
+            font-weight: 600;
+            font-size: 16px;
+            color: #ffffff;
+            padding: 13px 63px;
+            margin: 3vw auto 0 auto;
+        }
+        & > p {
+            font-family: $Rubik;
+            font-weight: 600;
+            font-size: 36px;
+            margin-top: 1vw;
+            text-align: center;
+            span {
+                font-family: $Rubik;
+                font-weight: 600;
+                color: var(--blue);
+            }
+        }
+        @media (max-width: 1300px) {
+            h1 {
+                padding-bottom: 45px;
+            }
+            h2 {
+                padding-bottom: 35px;
+            }
+
+            button {
+                margin: 35px auto 0 auto;
+            }
+            & > p {
+                margin-top: 15px;
+            }
+        }
+        @media (max-width: 800px) {
+            margin-top: 250px;
+            padding-bottom: 70px;
+        }
+        @media (max-width: 660px) {
+            margin-top: 165px;
+            h1 {
+                font-size: 24px;
+                padding-bottom: 30px;
+            }
+            h2 {
+                font-size: 20px;
+            }
+            button {
+                font-size: 14px;
+                margin: 25px auto 0 auto;
+            }
+            & > p {
+                font-size: 20px;
+            }
+        }
+    }
+    .error-message {
+        margin-bottom: 50px;
+        margin-top: -40px;
+        color: #E56B6B;
+    }
+    .FirstStep,
+    .SecondStep {
+        .block {
+            & > div {
+                display: flex;
+                gap: 28px;
+                padding-bottom: 1.3vw;
+                input[type="checkbox"] {
+                    cursor: pointer;
+                    position: relative;
+                    margin-bottom: 34px;
+                    margin-right: 34px;
+                    width: 1px;
+                    height: 1px;
+                }
+                input[type="checkbox"]:before {
+                    content: "";
+                    display: block;
+                    width: 35px;
+                    height: 35px;
+                    border: none;
+                    border-radius: 3px;
+                    background-color: var(--font);
+                }
+                input[type="checkbox"]:checked:before {
+                    background-color: var(--blue);
+                    //background-color: var(--light-font);
+                }
+                input[type="checkbox"]:checked:after {
+                    content: "";
+                    display: block;
+                    width: 7px;
+                    height: 15px;
+                    border: solid var(--font);
+                    border-width: 0 3px 3px 0;
+                    -webkit-transform: rotate(45deg);
+                    -ms-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                    position: absolute;
+                    top: 7px;
+                    left: 13px;
+                }
+                label {
+                    font-family: $Raleway;
+                    font-weight: 600;
+                    font-size: 24px;
+                    letter-spacing: 0.1em;
+                    color: #ffffff;
+                    margin-top: 2px;
+                }
+            }
+        }
+        @media (max-width: 1300px) {
+            .block {
+                & > div {
+                    gap: 28px;
+                    padding-bottom: 23px;
+                }
+            }
+        }
+        @media (max-width: 660px) {
+            .block {
+                & > div {
+                    gap: 16px;
+                    padding-bottom: 20px;
+                    input[type="checkbox"] {
+                        margin-bottom: 25px;
+                        margin-right: 25px;
+                    }
+                    input[type="checkbox"]:before {
+                        width: 26px;
+                        height: 26px;
+                        border-radius: 2px;
+                    }
+                    input[type="checkbox"]:checked:after {
+                        width: 5px;
+                        height: 12px;
+                        border-width: 0 2px 2px 0;
+                        top: 5px;
+                        left: 10px;
+                    }
+                    label {
+                        font-size: 16px;
+                        margin-top: 2px;
+                    }
+                }
+            }
+        }
+    }
+    .SecondStep {
+        .block {
+            padding-left: 4vw;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr) max-content;
+            column-gap: 6vw;
+        }
+        @media (max-width: 1200px) {
+            .block {
+                display: flex;
+                flex-direction: column;
+                width: max-content;
+                padding-left: 0;
+                margin: 0 auto;
+            }
+            h2 {
+                margin-bottom: 30px;
+                max-width: 80vw;
+            }
+        }
+        @media (max-width: 660px) {
+            h2 {
+                margin-bottom: 0px;
+            }
+        }
+    }
+    .ThirdStep {
+        .data {
+            display: flex;
+            flex-direction: column;
+            label {
+                font-family: $Raleway;
+                font-weight: 600;
+                font-size: 24px;
+                letter-spacing: 0.1em;
+                color: #ffffff;
+                margin-top: 2vw;
+            }
+            input {
+                font-family: $Raleway;
+                font-weight: 600;
+                font-size: 24px;
+                letter-spacing: 0.1em;
+                background: #181830;
+                border-radius: 10px;
+                margin-top: 12px;
+                padding: 11px 20px;
+                width: 760px;
+                max-width: 80vw;
+                color: #ffffff;
+            }
+            input::placeholder {
+                color: #3a3a5d;
+            }
+            input[type="date"]::-webkit-calendar-picker-indicator {
+                filter: invert(100%);
+            }
+            .error {
+                border: 1px solid var(--pink);
+            }
+            & > div {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                width: 100%;
+                gap: 1vw;
+                margin-top: 12px;
+                & > div {
+                    background: #181830;
+                    border-radius: 10px;
+                    padding: 1vw;
+                    text-align: center;
+                    border: 1px solid #181830;
+                    p {
+                        font-family: $Raleway;
+                        font-weight: 600;
+                        font-size: 24px;
+                        letter-spacing: 0.1em;
+                        color: #3a3a5d;
+                        margin-top: 8px;
+                    }
+                }
+                .select {
+                    border: 1px solid #ffffff;
+                    p {
+                        color: #ffffff;
+                    }
+                }
+            }
+            & > p {
+                font-family: $Raleway;
+                font-weight: 600;
+                font-size: 24px;
+                text-align: center;
+                letter-spacing: 0.1em;
+                max-width: 460px;
+                margin: auto;
+                margin-top: 3vw;
+                span {
+                    font-family: $Raleway;
+                    font-weight: 600;
+                    color: var(--blue);
+                }
+            }
+        }
+        @media (max-width: 1000px) {
+            h1 {
+                margin-bottom: 10px;
+                padding-bottom: 0px;
+            }
+            .data {
+                label {
+                    margin-top: 30px;
+                }
+                & > div {
+                    gap: 15px;
+                    & > div {
+                        padding: 15px;
+                    }
+                }
+                & > p {
+                    margin-top: 40px;
+                }
+            }
+        }
+        @media (max-width: 660px) {
+            .data {
+                label {
+                    font-size: 16px;
+                }
+                input {
+                    font-size: 10px;
+                }
+                input[type="date"] {
+                    font-size: 14px;
+                }
+                & > div > div p {
+                    font-size: 14px;
+                }
+                & > p {
+                    font-size: 14px;
+                }
+            }
+        }
+        @media (max-width: 520px) {
+            button{
+                padding: 13px 20px;
+                width: 100%;
+            }
+            .data {
+                max-width: 80vw;
+                & > div {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+        }
+    }
+}

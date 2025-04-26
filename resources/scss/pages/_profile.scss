@@ -5,6 +5,13 @@
     gap: 5vw;
     position: relative;
     overflow: hidden;
+    min-height: calc(100vh - (2vw + 115px));
+    @media (max-width: 1400px) {
+        padding-left: 14vw;
+    }
+    @media (max-width: 1260px) {
+        padding-left: 8vw;
+    }
     .buttons {
         width: min-content;
         position: relative;
@@ -21,8 +28,8 @@
             }
             .right-top {
                 position: absolute;
-                right: 0;
-                top: 0;
+                right: -0.6px;
+                top: -0.4px;
             }
             .left-bottom {
                 position: absolute;
@@ -46,6 +53,31 @@
         .light-button {
             background-color: transparent;
         }
+    }
+    .summary {
+        display: flex;
+        & > div {
+            border: 2px solid var(--blue);
+            border-radius: 10px;
+            padding: 1vw 2vw 0.8vw 2vw;
+            width: max-content;
+            margin: 1.8vw 1vw 1.8vw 0;
+            cursor: pointer;
+            p {
+                font-family: $Raleway;
+                font-weight: 600;
+                font-size: 24px;
+                letter-spacing: 0.1em;
+                color: var(--blue);
+                text-align: center;
+            }
+            :first-child {
+                margin-bottom: 5px;
+            }
+        }
+    }
+    .mobile-only {
+        display: none;
     }
     .info {
         .name {
@@ -104,27 +136,6 @@
                 letter-spacing: 0.1em;
             }
         }
-        .summary {
-            display: flex;
-            & > div {
-                border: 2px solid var(--blue);
-                border-radius: 10px;
-                padding: 1vw 2vw 0.8vw 2vw;
-                width: max-content;
-                margin: 1.8vw 1vw 1.8vw 0;
-                p {
-                    font-family: $Raleway;
-                    font-weight: 600;
-                    font-size: 24px;
-                    letter-spacing: 0.1em;
-                    color: var(--blue);
-                    text-align: center;
-                }
-                :first-child {
-                    margin-bottom: 5px;
-                }
-            }
-        }
     }
     .gradient {
         position: absolute;
@@ -139,5 +150,150 @@
         z-index: -1;
         height: 26vw;
         width: auto;
+    }
+    @media (max-width: 1080px) {
+        padding: 5vw 14vw;
+        row-gap: 20px;
+        grid-template-rows: max-content min-content min-content;
+        .info {
+            .name {
+                flex-direction: column;
+                p {
+                    font-size: 20px;
+                    margin-bottom: 30px;
+                }
+            }
+            .user {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .games {
+                display: flex;
+                flex-direction: column;
+                p {
+                    margin-bottom: 10px;
+                }
+                :first-child {
+                    order: 3;
+                }
+                p:first-of-type {
+                    order: 4;
+                }
+                h3:last-of-type {
+                    order: 1;
+                }
+                :last-child {
+                    order: 2;
+                }
+            }
+        }
+        & > p {
+            grid-column: 1/3;
+        }
+        .mobile-only {
+            display: block;
+        }
+        .summary {
+            grid-column: 1/3;
+            display: flex;
+        }
+        .back_image {
+            display: none;
+        }
+    }
+    @media (max-width: 760px) {
+        .info .name h2 {
+            font-size: 24px;
+        }
+        .summary {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 30px;
+            & > div {
+                width: 40vw;
+                padding: 15px;
+                margin: auto;
+            }
+        }
+    }
+    @media (max-width: 660px) {
+        column-gap: 25px;
+        .buttons {
+            & > div {
+                width: 110px;
+                margin-bottom: 0;
+                img {
+                    width: 110px;
+                    height: 149px;
+                    border-radius: 5px;
+                }
+                .left-bottom {
+                    width: 30px;
+                    bottom: 3.5px;
+                    height: auto;
+                }
+                .right-top {
+                    width: 30px;
+                    height: auto;
+                }
+            }
+            .gradient {
+                width: 450px;
+                left: -229px;
+                top: -95px;
+            }
+        }
+        .info {
+            .name {
+                h2 {
+                    font-size: 16px;
+                    margin-right: 0;
+                }
+                p {
+                    font-size: 10px;
+                    margin-bottom: 20px;
+                }
+            }
+            .user {
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 10px;
+                p {
+                    font-weight: 600;
+                    font-size: 6px;
+                }
+            }
+            .games {
+                row-gap: 6px;
+                p {
+                    font-size: 6px;
+                    font-weight: 400;
+                    margin-bottom: 3px;
+                }
+                h3 {
+                    font-size: 6px;
+                    font-weight: 600;
+                }
+            }
+        }
+        & > p {
+            font-size: 6px;
+            line-height: 7px;
+            letter-spacing: 0.1em;
+        }
+        .summary {
+            margin-top: 10px;
+            & > div {
+                padding: 10px;
+                padding-bottom: 8px;
+                min-width: 50vw;
+                width: max-content;
+                p {
+                    font-weight: 600;
+                    font-size: 12px;
+                }
+            }
+        }
     }
 }

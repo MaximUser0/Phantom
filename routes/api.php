@@ -37,6 +37,7 @@ Route::middleware('auth:sanctum')->group(
         Route::get('user/info', [UserController::class, 'info']);
         Route::get('user/{id}', [UserController::class, 'show']);
         Route::post('user', [UserController::class, 'update']);
+        Route::post('survey', [AuthController::class, 'survey']);
 
         Route::post('article/{id}/comment', [ArticleController::class, 'addComment']);
         Route::post('news/{id}/comment', [NewsController::class, 'addComment']);

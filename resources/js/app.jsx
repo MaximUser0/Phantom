@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import Header from "./components/Header";
@@ -14,12 +14,14 @@ import Profile from "./pages/Profile";
 import SingUp from "./pages/SingUp";
 import Login from "./pages/Login";
 import Survay from "./pages/Survey";
-import AdminPanel from "./pages/AdminPanel";
 import Team from "./pages/Team";
+import TeamCreate from "./pages/Teams/Create";
 import Teams from "./pages/Teams";
 import Games from "./pages/Games";
 import Game from "./pages/Game";
 import Chat from "./pages/Chat";
+import MyTeams from "./pages/MyTeams";
+import AdminPanel from "./pages/AdminPanel";
 
 export default function App() {
     //const token = useSelector((state) => state.auth.token);
@@ -32,7 +34,10 @@ export default function App() {
                 <Route path="/news" element={<News />} />
                 <Route path="/news/:id" element={<OneNews />} />
                 <Route path="/team" element={<Teams />} />
+                <Route path="/team-create" element={<TeamCreate />} />
                 <Route path="/team/:id" element={<Team />} />
+                <Route path="/my-team" element={<MyTeams />} />
+
                 <Route path="/game" element={<Games />} />
                 <Route path="/game/:id" element={<Game />} />
                 <Route path="/forum" element={<Forums />} />
@@ -42,7 +47,8 @@ export default function App() {
                 <Route path="/sing-up" element={<SingUp />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/survey" element={<Survay />} />
-                <Route path="/admin-panel" element={<AdminPanel />} />
+
+                <Route path="/admin-panel/:page" element={<AdminPanel/>} />
             </Routes>
             <Footer />
         </div>

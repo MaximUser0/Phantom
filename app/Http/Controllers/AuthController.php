@@ -10,12 +10,12 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required',
+            'name' => 'required',
             'password' => 'required',
             'recaptcha_token' => 'required',
         ]);
 
-        
+
         $secret = "6LfzjLAqAAAAANfkZJtdoYV1cmMzwH1JxZadUiL1";
         $out = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $request->recaptcha_token);
         $out = json_decode($out);
@@ -26,7 +26,7 @@ class AuthController extends Controller
             return response()->json("The captcha blocked access", 403);
         }
 
-        if (auth()->attempt($request->only('email', 'password'))) {
+        if (auth()->attempt($request->only('name', 'password'))) {
             if (auth()->user()->is_blocked)
                 return response()->json('You are blocked', 403);
             $token = auth()->user()->createToken('token')->plainTextToken;
@@ -46,8 +46,6 @@ class AuthController extends Controller
     public function create(Request $request)
     {
         $check = [
-            'name' => 'required|regex:/^[а-яА-Яa-zA-Z0-9]+ +[а-яА-Яa-zA-Z0-9]+$/u|max:255',
-            'number_phone' => 'required|regex:/^[+0-9]+$/u|max:15',
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
             'password_repeat' => 'required|same:password',
@@ -67,14 +65,25 @@ class AuthController extends Controller
         }
 
         $user = User::create([
-            'name' => $request->name,
-            'number_phone' => $request->number_phone,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
         auth()->login($user);
         $token = auth()->user()->createToken('token')->plainTextToken;
         return response()->json(['token' => $token, 'user' => $user], 200);
+    }
+
+    public function survey(Request $request)
+    {
+        $check = [
+            'favorite_games' => 'required',
+            'favorite_genres' => 'required',
+            'name' => 'required|regex:/^[а-яА-Яa-zA-Z0-9_]+$/u|max:255',
+            'gender' => 'required',
+        ];
+        $checked = $this->validate($request, $check);
+        auth()->user()->update($checked);
+        return response()->json(auth()->user(), 200);
     }
 
     public function index(Request $request)

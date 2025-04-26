@@ -12,14 +12,12 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('src')->nullable();
+            $table->string('name')->nullable();
+            $table->text('image')->nullable();
             $table->date('date_of_birth')->nullable();
-            $table->string('purpose_of_dating')->nullable();
-            $table->text('hobbies')->nullable();
-            $table->text('about')->nullable();
-            $table->string('number_phone');
-            $table->string('city')->nullable();
+            $table->boolean('gender')->nullable();
+            $table->text('favorite_genres')->nullable();
+            $table->text('favorite_games')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

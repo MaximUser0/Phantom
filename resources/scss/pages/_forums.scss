@@ -1,10 +1,11 @@
-.Forums {
+.Forums,
+.Games {
     h1 {
         font-family: $Rubik;
         font-style: normal;
         font-weight: 600;
         font-size: 32px;
-        margin: 3vw 8vw 2vw 8vw;
+        margin: 3vw 8vw 35px 8vw;
     }
     .list {
         border-top: 1px solid #22226b;
@@ -74,13 +75,56 @@
             }
         }
     }
+    @media (max-width: 1080px) {
+        .list > div {
+            padding: 20px 14vw;
+            grid-template-columns: min-content 1fr;
+            gap: 25px;
+            .owner,
+            .messages {
+                display: none;
+            }
+        }
+        h1 {
+            margin: 3vw 14vw 35px 14vw;
+        }
+    }
+    @media (max-width: 660px) {
+        h1 {
+            font-weight: 600;
+            font-size: 24px;
+        }
+        .list > div {
+            padding: 20px 14vw;
+            grid-template-columns: min-content 1fr;
+            gap: 25px;
+            .owner,
+            .messages {
+                display: none;
+            }
+            & > img {
+                width: 57px;
+                height: 57px;
+            }
+            .info {
+                h2 {
+                    font-weight: 700;
+                    font-size: 14px;
+                }
+                p {
+                    font-weight: 400;
+                    font-size: 6px;
+                }
+            }
+        }
+    }
 }
 .pagination {
     margin: auto;
     display: flex;
     border-bottom: 1px solid var(--blue);
     width: max-content;
-    gap: 3px;
+    gap: 8px;
     margin-top: 3vw;
     margin-bottom: 2vw;
 
@@ -89,9 +133,344 @@
         font-weight: 400;
         font-size: 20px;
         color: var(--blue);
-        padding: 10px 12px;
+        padding: 10px 20px;
     }
     .active {
         border-bottom: 4px solid var(--blue);
+    }
+    @media (max-width: 660px) {
+        display: none;
+    }
+}
+.Forum {
+    margin: 3.5vw 8vw;
+    display: grid;
+    grid-template-columns: 8.5fr 5fr;
+    gap: 7vw;
+    h1 {
+        font-family: $Rubik;
+        font-weight: 600;
+        font-size: 32px;
+        margin-bottom: 25px;
+    }
+    .content {
+        & > div {
+            border: 3px solid var(--blue);
+            box-shadow: 0px 4px 15.5px 9px rgba(100, 69, 251, 0.4);
+            border-radius: 10px;
+            padding: 30px;
+            display: grid;
+            grid-template-columns: min-content 1fr;
+            gap: 25px;
+        }
+        .image {
+            display: flex;
+            flex-direction: column;
+            img {
+                width: 76px;
+                height: 68px;
+                border-radius: 5px;
+                object-fit: cover;
+            }
+            p {
+                font-family: $Raleway;
+                font-weight: 400;
+                font-size: 12px;
+                letter-spacing: 0.1em;
+                margin-top: 5px;
+                text-align: center;
+            }
+        }
+        .info {
+            max-height: 650px;
+            overflow-y: scroll;
+            scrollbar-width: thin;
+            scrollbar-color: #191252 var(--background);
+            scroll-behavior: smooth;
+            &::-webkit-scrollbar {
+                width: 10px;
+            }
+            &::-webkit-scrollbar-track {
+                background: var(--background);
+            }
+            &::-webkit-scrollbar-thumb {
+                background-color: #191252;
+                border-radius: 5px;
+                border: solid 3px transparent;
+            }
+            h2 {
+                font-family: $Raleway;
+                font-weight: 700;
+                font-size: 16px;
+                letter-spacing: 0.1em;
+                margin-bottom: 20px;
+            }
+            p {
+                font-family: $Raleway;
+                font-weight: 400;
+                font-size: 14px;
+                letter-spacing: 0.1em;
+                margin-bottom: 20px;
+            }
+            & > div {
+                height: max-content;
+                & > div {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 20px;
+                }
+            }
+            img {
+                width: auto;
+                max-width: 100%;
+                height: 230px;
+                border-radius: 0;
+            }
+        }
+    }
+    .comments {
+        .list {
+            margin-top: 10px;
+            height: 418px;
+            direction: rtl;
+            overflow-x: auto;
+            overflow-y: scroll;
+            scrollbar-width: thin;
+            scrollbar-color: #191252 var(--background);
+            scroll-behavior: smooth;
+            padding-left: 15px;
+            &::-webkit-scrollbar {
+                width: 10px;
+            }
+            &::-webkit-scrollbar-track {
+                background: var(--background);
+            }
+            &::-webkit-scrollbar-thumb {
+                background-color: #191252;
+                border-radius: 5px;
+                border: solid 3px transparent;
+            }
+            & > div {
+                height: max-content;
+                direction: ltr;
+                img {
+                    width: 48px;
+                    height: 43px;
+                    border-radius: 5px;
+                    object-fit: cover;
+                }
+                & > div {
+                    display: grid;
+                    grid-template-columns: min-content 1fr;
+                    gap: 10px;
+                    margin-bottom: 25px;
+                    h3 {
+                        font-family: $Raleway;
+                        font-weight: 700;
+                        font-size: 16px;
+                        letter-spacing: 0.1em;
+                    }
+                    p {
+                        font-family: $Raleway;
+                        font-weight: 400;
+                        font-size: 14px;
+                        letter-spacing: 0.1em;
+                        margin-top: 10px;
+                    }
+                    .date {
+                        font-size: 12px;
+                        margin-top: 5px;
+                    }
+                }
+            }
+        }
+        .addComment {
+            margin-top: 2vw;
+            position: relative;
+            h2 {
+                font-family: $Raleway;
+                font-weight: 700;
+                font-size: 16px;
+                letter-spacing: 0.1em;
+                margin-bottom: 15px;
+                span {
+                    font-family: "Raleway";
+                    font-weight: 700;
+                    font-size: 16px;
+                    letter-spacing: 0.1em;
+                    text-decoration-line: underline;
+                    margin-left: 15px;
+                }
+            }
+            textarea {
+                background: #ffffff;
+                border-radius: 10px;
+                width: 100%;
+                min-height: 217px;
+                margin-bottom: 10px;
+                padding: 15px 20px;
+            }
+            button {
+                background: var(--blue);
+                border-radius: 10px;
+                font-family: $Rubik;
+                font-weight: 600;
+                font-size: 16px;
+                text-align: center;
+                color: #ffffff;
+                padding: 12px 55px;
+            }
+            img {
+                position: absolute;
+                right: -80px;
+                bottom: 0;
+                width: 162px;
+                height: 288px;
+            }
+        }
+    }
+    @media (max-width: 1200px) {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        .content {
+            & > div {
+                border: none;
+                box-shadow: none;
+                border-radius: 10px;
+                padding: 0;
+                gap: 25px;
+            }
+        }
+        .comments .list {
+            max-height: 418px;
+            height: min-content;
+            margin-bottom: 50px;
+        }
+    }
+    @media (max-width: 1080px) {
+        margin: 30px 14vw;
+        .content {
+            & > div {
+                display: flex;
+                flex-direction: column;
+            }
+            .image {
+                display: flex;
+                flex-direction: row;
+                gap: 20px;
+                p {
+                    display: none;
+                }
+                h2 {
+                    font-family: $Raleway;
+                    font-weight: 700;
+                    font-size: 16px;
+                    letter-spacing: 0.1em;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+        .comments .list {
+            .mobile-only {
+                display: none;
+            }
+        }
+    }
+    @media (max-width: 660px) {
+        h1 {
+            font-weight: 600;
+            font-size: 24px;
+        }
+        .content {
+            .image {
+                h2 {
+                    font-family: $Raleway;
+                    font-weight: 700;
+                    font-size: 10px;
+                    letter-spacing: 0.1em;
+                }
+                img {
+                    width: 48px;
+                    height: 43px;
+                    border-radius: 5px;
+                }
+            }
+            .info {
+                & > div {
+                    p {
+                        font-size: 6px;
+                        margin-bottom: 12px;
+                    }
+                    & > div {
+                        gap: 12px;
+                    }
+                    img {
+                        width: 100%;
+                        height: 35vw;
+                        border-radius: 0;
+                        object-fit: cover;
+                    }
+                }
+            }
+        }
+        .comments .list {
+            padding-left: 0;
+            & > div {
+                & > div {
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: 15px;
+                    gap: 0;
+                    & > div {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 10px;
+                        .date {
+                            display: none;
+                        }
+                        h3 {
+                            display: none;
+                        }
+                        .mobile-only {
+                            display: block;
+                            font-weight: 700;
+                            font-size: 10px;
+                        }
+                        img {
+                            width: 33px;
+                            height: 29px;
+                            border-radius: 5px;
+                        }
+                        p {
+                            font-size: 6px;
+                            letter-spacing: 0.1em;
+                        }
+                    }
+                }
+            }
+        }
+        .comments .addComment {
+            h2 {
+                font-size: 12px;
+            }
+            img {
+                width: 15vw;
+                height: 27vw;
+                right: -3vw;
+                bottom: -1vw;
+            }
+            button {
+                font-size: 10px;
+                padding: 10px 35px;
+                border-radius: 5px;
+            }
+            textarea {
+                font-size: 6px;
+                letter-spacing: 0.1em;
+                min-height: 25vw;
+                border-radius: 5px;
+            }
+        }
     }
 }

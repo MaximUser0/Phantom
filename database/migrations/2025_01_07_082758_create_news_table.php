@@ -12,14 +12,10 @@ return new class extends Migration {
     {
         Schema::create('news', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('owner_id')->unsigned();
             $table->text('src');
-            $table->text('example_image')->nullable();
             $table->string('title');
             $table->text('description');
-            $table->text('text');
-            
-            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->text('content');
             $table->timestamps();
         });
     }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('forums', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('owner_id')->unsigned();
-            $table->text('src');
+            $table->text('images');
             $table->string('title');
             $table->text('description');
             $table->json('messages')->nullable();

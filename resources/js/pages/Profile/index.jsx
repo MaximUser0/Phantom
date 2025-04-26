@@ -2,8 +2,10 @@ import React from "react";
 import example from "../../../../public/img/example.jpg";
 import gradient from "../../assets/img/back_gradient.svg";
 import image from "../../assets/img/profile_image.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
+    const navigate = useNavigate();
     return (
         <div className="Profile">
             <div className="buttons">
@@ -36,9 +38,11 @@ export default function Profile() {
                         />
                     </svg>
                 </div>
-                <button>Удалить аккаунт</button>
-                <button>Выбрать фото</button>
-                <button className="light-button">Редактировать</button>
+                <button className="desktop-only">Удалить аккаунт</button>
+                <button className="desktop-only">Выбрать фото</button>
+                <button className="light-button desktop-only">
+                    Редактировать
+                </button>
                 <img
                     className="gradient"
                     alt="Фоновый градиент"
@@ -50,7 +54,7 @@ export default function Profile() {
                     <h2>fantom_skitsa</h2>
                     <p>Был в сети: 13.01.2025 в 11:25</p>
                 </div>
-                <p>
+                <p className="desktop-only">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Mauris sit amet tellus sit amet risus vulputate euismod.
                     Nunc molestie urna sit amet enim euismod, non convallis
@@ -68,8 +72,8 @@ export default function Profile() {
                     <p>Экшн, RPG, Шутеры, Файтинги</p>
                     <p>DOTA 2, Valorant, PUBG, WarThunder</p>
                 </div>
-                <div className="summary">
-                    <div>
+                <div className="summary desktop-only">
+                    <div onClick={() => navigate("../my-team")}>
                         <p>Команды</p>
                         <p>2</p>
                     </div>
@@ -81,6 +85,28 @@ export default function Profile() {
                         <p>Форумы</p>
                         <p>6</p>
                     </div>
+                </div>
+            </div>
+            <p className="mobile-only">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
+                sit amet tellus sit amet risus vulputate euismod. Nunc molestie
+                urna sit amet enim euismod, non convallis felis tempor. Nam a
+                aliquam massa, in consequat felis. Cras sollicitudin elementum
+                mi, id sollicitudin est. Nulla malesuada cursus augue, non
+                facilisis felis.
+            </p>
+            <div className="mobile-only summary">
+                <div onClick={() => navigate("../my-team")}>
+                    <p>Команды</p>
+                    <p>2</p>
+                </div>
+                <div>
+                    <p>Комментарии</p>
+                    <p>4</p>
+                </div>
+                <div>
+                    <p>Форумы</p>
+                    <p>6</p>
                 </div>
             </div>
             <img className="back_image" alt="Фоновый изображение" src={image} />

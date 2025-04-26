@@ -11,18 +11,16 @@ export default function Login() {
 
     function LogIn() {
         const body = {
-            password: document.getElementById("sing-up-password").value,
-            accept: document.getElementById("sing-up-accept").checked,
-            email: document.getElementById("sing-up-email").value,
+            password: document.getElementById("login-password").value,
+            name: document.getElementById("login").value,
             recaptcha_token: null,
         };
-        let error_check = !body.accept
-            ? { input: 3, message: "Согласие на обработку обязательно" }
-            : !/^[\w.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(body.email)
-            ? { input: 1, message: "Неправильный формат почты" }
-            : body.password == ""
-            ? { input: 2, message: "Введите пароль" }
-            : { input: 0, message: "" };
+        let error_check =
+            body.password == ""
+                ? { input: 2, message: "Введите пароль" }
+                : body.name == ""
+                ? { input: 1, message: "Введите имя" }
+                : { input: 0, message: "" };
         setError(error_check);
         if (error_check.input > 0) return;
 
@@ -42,7 +40,7 @@ export default function Login() {
                     console.log(response.data);
                     dispatch(setToken(response.data.token));
                     dispatch(setUser(response.data.user));
-                    navigate("/profile");
+                    navigate("../profile");
                 })
                 .catch((error) => {
                     console.log(error.response);
@@ -63,26 +61,15 @@ export default function Login() {
                     }
                     setError({
                         input: 1,
-                        message: "Неправильный E-mail или пароль",
+                        message: "Неправильное имя или пароль",
                     });
                     return;
                 });
         });
     }
+
     return (
         <div className="Login">
-            <div className="right">
-                <div>
-                    <h2>Добро пожаловать!</h2>
-                    <p>
-                        Введите свои личные данные и откройте для себя новый мир
-                        возможностей
-                    </p>
-                    <Link to="../sing-up">
-                        <button>Регистрация</button>
-                    </Link>
-                </div>
-            </div>
             <form
                 className="form"
                 onKeyDown={(e) => {
@@ -90,44 +77,45 @@ export default function Login() {
                         LogIn();
                     }
                 }}
+                onChange={() => setError({ input: 0, message: "" })}
             >
-                <h1>Вход в аккаунт</h1>
+                <h1>Авторизация</h1>
+                <Link to={"../sing-up"} className="desktop-only">
+                    Регистрация
+                </Link>
+                <label>Логин</label>
                 <input
-                    type="email"
-                    placeholder="E-mail"
-                    id="sing-up-email"
+                    type="text"
+                    placeholder="Логин"
+                    id="login"
                     className={error.input == 1 ? "error" : ""}
                 />
+                <label>Пароль</label>
                 <input
                     type="password"
                     placeholder="Пароль"
-                    id="sing-up-password"
+                    id="login-password"
                     className={error.input == 2 ? "error" : ""}
                 />
-                <div className="checkbox">
-                    <input
-                        type="checkbox"
-                        id="sing-up-accept"
-                        className={error.input == 3 ? "error" : ""}
-                    />
-                    <label>Согласие на обработку персональных данных</label>
-                    <button
-                        onClick={(e) => {
-                            e.preventDefault();
-                            LogIn();
-                        }}
-                    >
-                        Войти
-                    </button>
-                </div>
+                <p>
+                    Забыли пароль? <a>Смена пароля</a>
+                </p>
+                <button
+                    onClick={(e) => {
+                        e.preventDefault();
+                        LogIn();
+                    }}
+                >
+                    Войти
+                </button>
+                <Link to={"../sing-up"} className="mobile-only">
+                    Регистрация
+                </Link>
                 {error.input != 0 ? (
                     <p className="error-message">{error.message}</p>
                 ) : (
                     ""
                 )}
-                <p className="already">
-                    Нет аккаунта? <Link to="../sing-up">Регистрация</Link>
-                </p>
             </form>
         </div>
     );

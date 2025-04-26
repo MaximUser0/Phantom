@@ -1,5 +1,7 @@
 .News {
     margin: 3.5vw 8vw;
+    position: relative;
+    min-height: calc(100vh - (9vw + 114.6px));
     h1 {
         font-family: $Rubik;
         font-style: normal;
@@ -12,7 +14,12 @@
         grid-template-columns: repeat(4, 1fr);
         max-width: 1150px;
         gap: 2vw;
+        @media (max-width: 1200px) {
+            grid-template-columns: repeat(3, 1fr);
+            row-gap: 40px;
+        }
         & > div {
+            cursor: pointer;
             img {
                 object-fit: cover;
                 width: 100%;
@@ -39,11 +46,279 @@
             }
         }
     }
-    &>img{
+    & > img {
         position: absolute;
-        bottom: 0;
-        right: 0;
+        bottom: -3.5vw;
+        right: -8vw;
         height: auto;
         width: 37vw;
+    }
+    @media (max-width: 1080px) {
+        margin: 5vw 14vw;
+        h1 {
+            margin-bottom: 30px;
+        }
+        & > div {
+            column-gap: 30px;
+        }
+        & > img {
+            display: none;
+        }
+    }
+    @media (max-width: 900px) {
+        & > div {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    @media (max-width: 660px) {
+        h1 {
+            font-weight: 600;
+            font-size: 24px;
+        }
+        & > div {
+            row-gap: 30px;
+            & > div {
+                img {
+                    height: 118px;
+                    margin-bottom: 8px;
+                }
+                h2 {
+                    font-weight: 700;
+                    font-size: 14px;
+                    margin-bottom: 8px;
+                }
+                p {
+                    font-weight: 400;
+                    font-size: 10px;
+                }
+            }
+        }
+    }
+    @media (max-width: 510px) {
+        margin: 30px 14vw;
+        & > div {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+}
+.OneNews {
+    margin: 3.5vw 8vw;
+    display: grid;
+    grid-template-columns: min-content 5fr 3fr;
+    gap: 3vw;
+    overflow: auto;
+    & > img {
+        width: 312px;
+        height: 468px;
+        max-width: 16vw;
+        max-height: 24vw;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+    .back-image {
+        position: absolute;
+        left: -60px;
+        top: 540px;
+        width: 290px;
+        object-fit: contain;
+        z-index: -1;
+        max-width: none;
+        max-height: none;
+    }
+    .back-shadow {
+        position: absolute;
+        left: 0vw;
+        top: 5vw;
+        width: 650px;
+        height: auto;
+        max-width: none;
+        max-height: none;
+        z-index: -2;
+        object-fit: contain;
+        filter: blur(10px);
+    }
+    h1 {
+        font-family: $Rubik;
+        font-weight: 600;
+        font-size: 32px;
+        margin-bottom: 2.5vw;
+    }
+    h2 {
+        font-family: $Raleway;
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: 0.1em;
+        margin-bottom: 10px;
+    }
+    .content {
+        p {
+            font-family: $Raleway;
+            font-weight: 400;
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            margin-bottom: 2.5vw;
+        }
+        margin-right: 2vw;
+    }
+    .comments {
+        .list {
+            height: 440px;
+            direction: rtl;
+            overflow-x: auto;
+            overflow-y: scroll;
+            scrollbar-width: thin;
+            scrollbar-color: #191252 var(--background);
+            scroll-behavior: smooth;
+            padding-left: 15px;
+            &::-webkit-scrollbar {
+                width: 10px;
+            }
+            &::-webkit-scrollbar-track {
+                background: var(--background);
+            }
+            &::-webkit-scrollbar-thumb {
+                background-color: #191252;
+                border-radius: 5px;
+                border: solid 3px transparent;
+            }
+            & > div {
+                height: max-content;
+                direction: ltr;
+                img {
+                    width: 48px;
+                    height: 43px;
+                    border-radius: 5px;
+                    object-fit: cover;
+                }
+                & > div {
+                    & > div {
+                        display: flex;
+                        margin: 15px 0 15px 0;
+                        p {
+                            margin: auto 10px;
+                            font-family: $Raleway;
+                            font-weight: 700;
+                            font-size: 14px;
+                            letter-spacing: 0.1em;
+                        }
+                    }
+                    & > p {
+                        font-family: $Raleway;
+                        font-weight: 400;
+                        font-size: 14px;
+                        letter-spacing: 0.1em;
+                    }
+                }
+            }
+        }
+        .addComment {
+            margin-top: 2vw;
+            h2 {
+                margin-bottom: 15px;
+            }
+            textarea {
+                background: #ffffff;
+                border-radius: 10px;
+                width: 100%;
+                max-width: 100%;
+                min-height: 217px;
+                margin-bottom: 10px;
+                padding: 10px 20px;
+                resize: none;
+            }
+            button {
+                background: var(--blue);
+                border-radius: 10px;
+                font-family: $Rubik;
+                font-weight: 600;
+                font-size: 16px;
+                text-align: center;
+                color: #ffffff;
+                padding: 12px 55px;
+            }
+        }
+    }
+    @media (max-width: 1080px) {
+        margin: 30px 14vw;
+        grid-template-columns: 1fr;
+        .back-shadow {
+            display: none;
+        }
+        & > img {
+            width: 100%;
+            max-width: 100%;
+            max-height: 100vw;
+            height: 80vw;
+            border-radius: 10px;
+        }
+        .back-image {
+            width: 33vw;
+            height: 33vw;
+            z-index: 1;
+            left: auto;
+            right: 0;
+            top: 85vw;
+        }
+    }
+    @media (max-width: 660px) {
+        gap: 0;
+        h1 {
+            font-size: 24px;
+        }
+        & > img{
+            margin-bottom: 20px;
+        }
+        .content {
+            h2 {
+                font-size: 12px;
+                letter-spacing: 0.1em;
+            }
+            p {
+                font-size: 6px;
+            }
+        }
+        .comments {
+            display: flex;
+            flex-direction: column-reverse;
+            .list {
+                padding-left: 0;
+                max-height: none;
+                height: max-content;
+                & > div > div {
+                    p {
+                        font-size: 6px;
+                    }
+                    & > div {
+                        margin: 15px 0 10px 0;
+                        img {
+                            width: 33px;
+                            height: 29px;
+                            border-radius: 5px;
+                        }
+                        p {
+                            font-size: 10px;
+                        }
+                    }
+                }
+            }
+            .addComment {
+                h2 {
+                    font-weight: 700;
+                    font-size: 12px;
+                }
+                textarea {
+                    font-weight: 400;
+                    font-size: 6px;
+                    min-height: 20vw;
+                    padding: 10px 15px;
+                }
+                button {
+                    font-size: 10px;
+                    padding: 8px 35px;
+                    border-radius: 5px;
+                    margin-bottom: 20px;
+                }
+            }
+        }
     }
 }

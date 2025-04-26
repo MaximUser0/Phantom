@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subscribers', function (Blueprint $table) {
+        Schema::create('team_requests', function (Blueprint $table) {
             $table->id();
+            $table->boolean("status")->default(0);
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('subscriber_id')->unsigned();
-            
+            $table->bigInteger('team_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('subscriber_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subscribers');
+        Schema::dropIfExists('team_requests');
     }
 };

@@ -9,7 +9,17 @@ import { useLocation } from "react-router-dom";
 export default function Footer() {
     const location = useLocation();
     return (
-        <footer className={location.pathname != "/" ? "mobile-only" : ""}>
+        <footer
+            className={
+                location.pathname != "/"
+                    ? location.pathname == "/login" ||
+                      location.pathname == "/sing-up" ||
+                      location.pathname == "/survey"
+                        ? "block-hidden"
+                        : "mobile-only"
+                    : ""
+            }
+        >
             <div>
                 <div className="logo">
                     <img alt="Логотип" src={logo} />
@@ -20,13 +30,18 @@ export default function Footer() {
                         вечер станет незабываемым!
                     </p>
                 </div>
+                <div className="mobile-only">
+                    <p>Условия и положения</p>
+                    <p>Политика конфиденциальности</p>
+                </div>
                 <div className="news">
                     <p>Новости</p>
-                    <p>Новости</p>
-                    <p>Новости</p>
-                    <p>Новости</p>
-                    <p>Новости</p>
+                    <p>Форум</p>
+                    <p>Команды</p>
+                    <p>Профиль</p>
+                    <p>Игры</p>
                 </div>
+
                 <div className="SocialNetworks">
                     <img alt="WhatsApp" src={WhatsApp} />
                     <img alt="GitHub" src={GitHub} />

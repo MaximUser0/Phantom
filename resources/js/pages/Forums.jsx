@@ -1,14 +1,17 @@
 import React from "react";
 import icon from "../assets/img/forum_icon.svg";
+import Pagination from "../components/Pagination";
+import { useNavigate } from "react-router-dom";
 
 export default function Forum() {
+    const navigate = useNavigate();
     const [forums, setForums] = React.useState([
         {
             title: "Название форума",
             description:
                 "Это очень крутая новость, советую ее всем прочесть, она касается всех самых крутых игр последнего десятилетия...",
             participants_number: 234,
-            messages_number: 1204,
+            comments_number: 1204,
             owner: "victor_aSdem",
             created_at: "30 марта 2025",
             owner_image: "./img/example.png",
@@ -18,7 +21,7 @@ export default function Forum() {
             description:
                 "Это очень крутая новость, советую ее всем прочесть, она касается всех самых крутых игр последнего десятилетия...",
             participants_number: 234,
-            messages_number: 1204,
+            comments_number: 1204,
             owner: "victor_aSdem",
             created_at: "30 марта 2025",
             owner_image: "./img/example.png",
@@ -28,7 +31,7 @@ export default function Forum() {
             description:
                 "Это очень крутая новость, советую ее всем прочесть, она касается всех самых крутых игр последнего десятилетия...",
             participants_number: 234,
-            messages_number: 1204,
+            comments_number: 1204,
             owner: "victor_aSdem",
             created_at: "30 марта 2025",
             owner_image: "./img/example.png",
@@ -38,7 +41,7 @@ export default function Forum() {
             description:
                 "Это очень крутая новость, советую ее всем прочесть, она касается всех самых крутых игр последнего десятилетия...",
             participants_number: 234,
-            messages_number: 1204,
+            comments_number: 1204,
             owner: "victor_aSdem",
             created_at: "30 марта 2025",
             owner_image: "./img/example.png",
@@ -48,20 +51,18 @@ export default function Forum() {
             description:
                 "Это очень крутая новость, советую ее всем прочесть, она касается всех самых крутых игр последнего десятилетия...",
             participants_number: 234,
-            messages_number: 1204,
+            comments_number: 1204,
             owner: "victor_aSdem",
             created_at: "30 марта 2025",
             owner_image: "./img/example.png",
         },
     ]);
-    const [active, setActive] = React.useState(0);
-    const pagination = ["1", "2", "3", "...", "12", ">"];
     return (
         <div className="Forums">
             <h1>Форумы</h1>
             <div className="list">
                 {forums.map((value, i) => (
-                    <div key={"forum_page_forum_" + i}>
+                    <div key={"forum-page-forum-" + i} onClick={() => navigate('../forum/1')}>
                         <img alt="Иконка форума" src={icon} />
                         <div className="info">
                             <h2>{value.title}</h2>
@@ -69,7 +70,7 @@ export default function Forum() {
                             <p>Участники: {value.participants_number}</p>
                         </div>
                         <div className="messages">
-                            <h3>{value.messages_number}</h3>
+                            <h3>{value.comments_number}</h3>
                             <p>Сообщений</p>
                         </div>
                         <div className="owner">
@@ -83,19 +84,7 @@ export default function Forum() {
                     </div>
                 ))}
             </div>
-            <div className="pagination">
-                {pagination.map((text, i) => (
-                    <p
-                        key={"forums_pagination_" + i}
-                        className={active == i ? "active" : ""}
-                        onClick={() => {
-                            setActive(i);
-                        }}
-                    >
-                        {text}
-                    </p>
-                ))}
-            </div>
+            <Pagination />
         </div>
     );
 }
