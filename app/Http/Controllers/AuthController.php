@@ -80,9 +80,11 @@ class AuthController extends Controller
             'favorite_genres' => 'required',
             'name' => 'required|regex:/^[а-яА-Яa-zA-Z0-9_]+$/u|max:255',
             'gender' => 'required',
+            'description' => 'required|nullable',
+            'date_of_birth' => 'required',
         ];
         $checked = $this->validate($request, $check);
-        auth()->user()->update($checked);
+        auth()->user()->updateOrFail($checked);
         return response()->json(auth()->user(), 200);
     }
 

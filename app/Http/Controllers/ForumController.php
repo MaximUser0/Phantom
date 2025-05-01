@@ -11,7 +11,9 @@ class ForumController extends Controller
 {
     public function index()
     {
-        $forums = Forum::select('forums.id AS id', 'src', 'title', 'description AS about', 'messages', 'created_at')->get();
+        $forums = Forum::join("users", "users.id", "=", "forums.owner_id")
+            ->select("title", "forums.description", "messages", "images", "forums.created_at", "image", "name")
+            ->paginate(5, 1);
         foreach ($forums as $key => $forum) {
             $forums[$key]->participants_count = ForumParticipant::where('forum_id', $forum['id'])->count();
         }

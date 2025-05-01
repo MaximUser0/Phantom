@@ -5,8 +5,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\FriendController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SubscriberController;
+use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,22 +26,32 @@ use Illuminate\Support\Facades\Route;
 Route::post('signup', [AuthController::class, 'create']);
 Route::post('login', [AuthController::class, 'login']);
 
-Route::get('news', [NewsController::class, 'index']);
+/*Route::get('news', [NewsController::class, 'index']);
 Route::get('news/{id}', [NewsController::class, 'show']);
 Route::get('article', [ArticleController::class, 'index']);
 Route::get('article/{id}', [ArticleController::class, 'show']);
-Route::get('forum', [ForumController::class, 'index']);
+Route::get('forum', [ForumController::class, 'index']);*/
 
 Route::middleware('auth:sanctum')->group(
     function () {
         Route::get('logout', [AuthController::class, 'logout']);
         Route::get('user', [UserController::class, 'index']);
-        Route::get('user/info', [UserController::class, 'info']);
-        Route::get('user/{id}', [UserController::class, 'show']);
-        Route::post('user', [UserController::class, 'update']);
+        Route::get('user/info', [UserController::class, 'commonInfo']);
+        Route::delete('user', [UserController::class, 'delete']);
+        Route::post('user/image', [UserController::class, 'updateImage']);
         Route::post('survey', [AuthController::class, 'survey']);
 
-        Route::post('article/{id}/comment', [ArticleController::class, 'addComment']);
+        Route::get('team', [TeamController::class, 'index']);
+
+        Route::post('request/{team_id}', [TeamController::class, 'request']);
+
+        Route::get('news', [NewsController::class, 'index']);
+
+        Route::get('forum', [ForumController::class, 'index']);
+
+        Route::get('game', [GameController::class, 'index']);
+
+        /*Route::post('article/{id}/comment', [ArticleController::class, 'addComment']);
         Route::post('news/{id}/comment', [NewsController::class, 'addComment']);
 
         Route::get('friend', [FriendController::class, 'index']);
@@ -65,7 +77,7 @@ Route::middleware('auth:sanctum')->group(
         Route::get('forum/{id}', [ForumController::class, 'show']);
         Route::post('forum/join', [ForumController::class, 'joinTo']);
         Route::delete('forum/out/{id}', [ForumController::class, 'outFrom']);
-        Route::patch('forum', [ForumController::class, 'update']);
+        Route::patch('forum', [ForumController::class, 'update']);*/
 
         Route::middleware('admin')->group(
             function () {

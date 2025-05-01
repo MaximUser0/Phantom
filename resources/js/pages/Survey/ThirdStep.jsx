@@ -2,11 +2,17 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import woman from "../../assets/img/woman_icon.svg";
 import man from "../../assets/img/man_icon.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../redux/slices/authSlice";
 
 export default function ThirdStep({ favoriteThinks }) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.auth.user);
     const [error, setError] = React.useState({ input: 0, message: "" });
-    const [selectGender, setSelectGender] = React.useState(0);
+    const [selectGender, setSelectGender] = React.useState(
+        sessionStorage.getItem("token") != null ? user.gender : 0
+    );
     return (
         <>
             <div className="ThirdStep">
@@ -20,7 +26,24 @@ export default function ThirdStep({ favoriteThinks }) {
                         placeholder="Введите ваше имя пользователя"
                         id="survey-name"
                         className={error.input == 1 ? "error" : ""}
+                        defaultValue={
+                            sessionStorage.getItem("token") != null
+                                ? user.name
+                                : null
+                        }
                     />
+                    <label>Описание</label>
+                    <textarea
+                        type="text"
+                        placeholder="Введите ваше описание"
+                        id="survey-description"
+                        className={error.input == 2 ? "error" : ""}
+                        defaultValue={
+                            sessionStorage.getItem("token") != null
+                                ? user.description
+                                : ""
+                        }
+                    ></textarea>
                     <label>Дата рождения</label>
                     <input
                         type="date"
@@ -28,6 +51,11 @@ export default function ThirdStep({ favoriteThinks }) {
                         max="2023-01-01"
                         id="survey-date"
                         className={error.input == 2 ? "error" : ""}
+                        defaultValue={
+                            sessionStorage.getItem("token") != null
+                                ? user.date_of_birth
+                                : null
+                        }
                     />
                     <label>Выберите ваш пол</label>
                     <div>
@@ -70,6 +98,7 @@ export default function ThirdStep({ favoriteThinks }) {
         const body = {
             name: document.getElementById("survey-name").value,
             date_of_birth: document.getElementById("survey-date").value,
+            description: document.getElementById("survey-description").value,
             gender: selectGender,
             favorite_genres: favoriteThinks.favoriteGenres,
             favorite_games: favoriteThinks.favoriteGames,
@@ -96,7 +125,7 @@ export default function ThirdStep({ favoriteThinks }) {
                 },
             })
             .then((response) => {
-                console.log(response.data);
+                dispatch(setUser(response.data));
                 navigate("../profile");
             })
             .catch((error) => {

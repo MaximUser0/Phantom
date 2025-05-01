@@ -234,7 +234,7 @@
                 color: #ffffff;
                 margin-top: 2vw;
             }
-            input {
+            input, textarea {
                 font-family: $Raleway;
                 font-weight: 600;
                 font-size: 24px;
@@ -246,15 +246,19 @@
                 width: 760px;
                 max-width: 80vw;
                 color: #ffffff;
+                resize: vertical;
             }
-            input::placeholder {
+            textarea{
+                min-height: 100px;
+            }
+            input::placeholder, textarea::placeholder {
                 color: #3a3a5d;
             }
             input[type="date"]::-webkit-calendar-picker-indicator {
                 filter: invert(100%);
             }
             .error {
-                border: 1px solid var(--pink);
+                border: 1px solid #F703C7;
             }
             & > div {
                 display: grid;

@@ -5,49 +5,22 @@ import { useNavigate } from "react-router-dom";
 
 export default function Games() {
     const navigate = useNavigate();
-    const [games, setGames] = React.useState([
-        {
-            title: "DOTA2",
-            description:
-                "Это командная тактико-стратегическая игра с элементами компьютерной ролевой игры, в которой каждый игрок управляет одним героем, и, если герой имеет соответствующие способности, некоторым количеством дополнительных существ.",
-            genre: "Стратегии",
-            image: "./img/example.png",
-        },
-        {
-            title: "DOTA2",
-            description:
-                "Это командная тактико-стратегическая игра с элементами компьютерной ролевой игры, в которой каждый игрок управляет одним героем, и, если герой имеет соответствующие способности, некоторым количеством дополнительных существ.",
-            genre: "Стратегии",
-            image: "./img/example.png",
-        },
-        {
-            title: "DOTA2",
-            description:
-                "Это командная тактико-стратегическая игра с элементами компьютерной ролевой игры, в которой каждый игрок управляет одним героем, и, если герой имеет соответствующие способности, некоторым количеством дополнительных существ.",
-            genre: "Стратегии",
-            image: "./img/example.png",
-        },
-        {
-            title: "DOTA2",
-            description:
-                "Это командная тактико-стратегическая игра с элементами компьютерной ролевой игры, в которой каждый игрок управляет одним героем, и, если герой имеет соответствующие способности, некоторым количеством дополнительных существ.",
-            genre: "Стратегии",
-            image: "./img/example.png",
-        },
-        {
-            title: "DOTA2",
-            description:
-                "Это командная тактико-стратегическая игра с элементами компьютерной ролевой игры, в которой каждый игрок управляет одним героем, и, если герой имеет соответствующие способности, некоторым количеством дополнительных существ.",
-            genre: "Стратегии",
-            image: "./img/example.png",
-        },
-    ]);
+    const [games, setGames] = React.useState([]);
+    const [paginationInfo, setPaginationInfo] = React.useState({});
+    const [active, setActive] = React.useState(0);
+    React.useEffect(() => {
+        getGames();
+    }, [active]);
+
     return (
         <div className="Games">
             <h1>Игры</h1>
             <div className="list">
                 {games.map((value, i) => (
-                    <div key={"games-page-game-" + i} onClick={() => navigate('../game/1')}>
+                    <div
+                        key={"games-page-game-" + i}
+                        onClick={() => navigate("../game/" + value.id)}
+                    >
                         <img alt="Изображение игры" src={value.image} />
                         <div className="info">
                             <h2>{value.title}</h2>
@@ -58,13 +31,36 @@ export default function Games() {
                         <div className="genre">
                             <div>
                                 <p>Жанр:</p>
-                                <p>{value.genre}</p>
+                                {value.genres.split("&").map((text, i) => (
+                                    <p key={"games-genre-" + i}>{text}</p>
+                                ))}
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
-            <Pagination />
+            <Pagination
+                info={paginationInfo}
+                active={active}
+                setActive={setActive}
+            />
         </div>
     );
+    function getGames() {
+        if (sessionStorage.getItem("token") == null) return;
+        axios
+            .get(window.location.origin + "/api/game?page=" + (active + 1), {
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                },
+            })
+            .then((response) => {
+                console.log(response.data);
+                setGames(response.data.data);
+                setPaginationInfo({
+                    last_page: response.data.last_page,
+                    current_page: response.data.current_page,
+                });
+            });
+    }
 }

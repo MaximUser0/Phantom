@@ -13,7 +13,9 @@ return new class extends Migration {
         Schema::create('team_participants', function (Blueprint $table) {
             $table->id();
             $table->bigInteger("user_id")->unsigned();
+            $table->bigInteger("team_id")->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
             $table->timestamps();
         });
     }

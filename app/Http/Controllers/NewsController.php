@@ -12,9 +12,6 @@ class NewsController extends Controller
     public function index()
     {
         $news = News::all();
-        foreach ($news as $one) {
-            $one->comment_counter = NewsComment::where('news_id', $one->id)->count();
-        }
         return response()->json($news, 200);
     }
     public function show($id)

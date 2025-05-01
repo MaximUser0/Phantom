@@ -1,7 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 export default function FirstStep({ setStep, setFavoriteGenres }) {
     const [error, setError] = React.useState(false);
+    const user = useSelector((state) => state.auth.user);
+    const [selected, setSelected] = React.useState(
+        user != null
+            ? user.favorite_genres.split("&")
+            : null
+    );
+
     const genres = [
         "Экшн",
         "Стратегия",
@@ -12,6 +20,7 @@ export default function FirstStep({ setStep, setFavoriteGenres }) {
         "Платформеры",
         "Файтинги",
     ];
+    React.useEffect(() => {}, [user]);
 
     return (
         <>
@@ -22,8 +31,17 @@ export default function FirstStep({ setStep, setFavoriteGenres }) {
                 </h2>
                 <div className="block">
                     {genres.map((value, i) => (
-                        <div key={"survey-page-genre-" + i} genreIndex={i}>
-                            <input type="checkbox" />
+                        <div key={"survey-page-genre-" + i} genreindex={i}>
+                            <input
+                                type="checkbox"
+                                defaultChecked={
+                                    selected != null
+                                        ? selected.includes(value)
+                                            ? "checked"
+                                            : false
+                                        : false
+                                }
+                            />
                             <label>{value}</label>
                         </div>
                     ))}
@@ -50,7 +68,7 @@ export default function FirstStep({ setStep, setFavoriteGenres }) {
             if (div.children[0].checked) {
                 selectedGenres +=
                     (selectedGenres != "" ? "&" : "") +
-                    genres[div.getAttribute("genreIndex")];
+                    genres[div.getAttribute("genreindex")];
             }
         });
         if (selectedGenres == "") {

@@ -1,12 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-if(sessionStorage.getItem("token") == 'null'){
+if (sessionStorage.getItem("token") == "null") {
     sessionStorage.setItem("token", null);
 }
 
 const initialState = {
     token: sessionStorage.getItem("token"),
-    user: { name: "", src: "../img/Example2.svg" },
+    user: {
+        name: null,
+        description: "",
+        img: "../img/Example2.svg",
+        date_of_birth: "0000-00-00 00-00",
+        favorite_genres: "Нет",
+        favorite_games: "Нет",
+        gender: 0,
+    },
 };
 
 export const authSlice = createSlice({

@@ -1,7 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 export default function SecondStep({ setStep, setFavoriteGames }) {
+    const user = useSelector((state) => state.auth.user);
     const [error, setError] = React.useState(false);
+    const [selected, setSelected] = React.useState(
+        sessionStorage.getItem("token") != null
+            ? user.favorite_games.split("&")
+            : null
+    );
     const games = [
         "DOTA2",
         "Call of duty",
@@ -28,6 +35,7 @@ export default function SecondStep({ setStep, setFavoriteGames }) {
         "Mortal Combat",
         "HearthStone",
     ];
+
     return (
         <>
             <div className="SecondStep">
@@ -37,8 +45,15 @@ export default function SecondStep({ setStep, setFavoriteGames }) {
                 </h2>
                 <div className="block">
                     {games.map((value, i) => (
-                        <div key={"survey-page-game-" + i} gameIndex={i}>
-                            <input type="checkbox" />
+                        <div key={"survey-page-game-" + i} gameindex={i}>
+                            <input
+                                type="checkbox"
+                                defaultChecked={
+                                    selected != null
+                                        ? selected.includes(value)
+                                        : false
+                                }
+                            />
                             <label>{value}</label>
                         </div>
                     ))}
@@ -63,7 +78,7 @@ export default function SecondStep({ setStep, setFavoriteGames }) {
             if (div.children[0].checked) {
                 selectedGames +=
                     (selectedGames != "" ? "&" : "") +
-                    games[div.getAttribute("gameIndex")];
+                    games[div.getAttribute("gameindex")];
             }
         });
         if (selectedGames == "") {
