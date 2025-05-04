@@ -148,6 +148,10 @@
             padding: 7px 13px;
             width: max-content;
         }
+        .genres{
+            display: flex;
+            gap: 10px;
+        }
     }
     .images {
         display: grid;

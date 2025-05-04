@@ -63,7 +63,7 @@ export default function Buttons() {
                 },
             })
             .then((response) => {
-                dispatch(setUser(response.data));
+                dispatch(setUser({}));
                 sessionStorage.removeItem("token");
                 navigate("../");
             })

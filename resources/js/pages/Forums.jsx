@@ -33,13 +33,13 @@ export default function Forum() {
                 {forums.map((value, i) => (
                     <div
                         key={"forum-page-forum-" + i}
-                        onClick={() => navigate("../forum/1")}
+                        onClick={() => navigate("../forum/" + value.id)}
                     >
                         <img alt="Иконка форума" src={icon} />
                         <div className="info">
                             <h2>{value.title}</h2>
-                            <p>{value.description}</p>
-                            <p>Участники: {value.participants_number}</p>
+                            <p>{value.description.slice(0, 109) + "..."}</p>
+                            <p>Участники: {value.participants_count}</p>
                         </div>
                         <div className="messages">
                             <h3>{numberOfMessages(value.messages)}</h3>
@@ -64,7 +64,11 @@ export default function Forum() {
                     </div>
                 ))}
             </div>
-            <Pagination info={paginationInfo} active={active} setActive={setActive}/>
+            <Pagination
+                info={paginationInfo}
+                active={active}
+                setActive={setActive}
+            />
         </div>
     );
     function getForums() {

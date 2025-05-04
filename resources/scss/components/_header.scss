@@ -1,7 +1,6 @@
 .Header {
     display: flex;
-    margin-left: 8vw;
-    margin-top: 2vw;
+    margin: 2vw 8vw 0 8vw;
     gap: 50px;
     & > a {
         font-weight: 600;
@@ -12,6 +11,9 @@
         & > img {
             margin-right: 60px;
         }
+    }
+    .logout{
+        margin: auto 0 auto auto;
     }
 
     .active {
@@ -35,6 +37,9 @@
             height: 7vw;
             margin: auto 0 5px 0;
         }
+    }
+    @media (max-width: 1270px) {
+        gap: 24px;
     }
 }
 .header-mobile-only {

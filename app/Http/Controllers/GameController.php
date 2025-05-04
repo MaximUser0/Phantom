@@ -17,20 +17,10 @@ class GameController extends Controller
         return response()->json($forums, 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        $game = Game::findOrFail($id);
+        return response()->json($game, 200);
     }
 
     /**

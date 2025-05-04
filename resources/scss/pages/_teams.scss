@@ -234,17 +234,14 @@
                     color: #ffffff;
                     margin: 1px 0 0 0;
                 }
-                select {
+                p {
                     font-family: $Raleway;
                     font-weight: 400;
                     font-size: 12px;
                     letter-spacing: 0.1em;
                     color: #ffffff;
-                    background-color: transparent;
-                    border: none;
-                    option {
-                        color: var(--background);
-                    }
+                    margin: auto 5px;
+                    padding-top: 1px;
                 }
             }
         }
@@ -297,7 +294,7 @@
                 left: 0;
                 height: min-content;
                 label,
-                select {
+                p {
                     font-size: 6px;
                 }
             }

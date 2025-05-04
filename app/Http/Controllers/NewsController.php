@@ -16,12 +16,11 @@ class NewsController extends Controller
     }
     public function show($id)
     {
-        $news = News::select("title", "text", "src AS image", "description", "created_at AS date")->findOrFail($id);
+        $news = News::findOrFail($id);
         $comments = NewsComment::where('news_id', $id)
             ->join("users", "users.id", "=", "news_comments.user_id")
-            ->select('user_id', "news_comments.id AS id", "news_comments.created_at AS date", "users.src AS src", 'name', 'text')
+            ->select( "users.image", 'name', 'content')
             ->get();
-        $news->comment_counter = count($comments);
         $news->comments = $comments;
         return response()->json($news, 200);
     }
@@ -75,17 +74,16 @@ class NewsController extends Controller
     public function addComment(Request $request, $id)
     {
         $this->validate($request, [
-            "text" => "required"
+            "content" => "required"
         ]);
         $comment = [
-            'text' => $request->text,
+            'content' => $request->content,
             'news_id' => $id,
             'user_id' => auth()->user()->id,
         ];
         $comment = NewsComment::create($comment);
-        $comment->user_id = auth()->user()->id;
-        $comment->src = auth()->user()->src;
-        $comment->date = $comment->created_at;
+        $comment->image = auth()->user()->image;
+        $comment->name = auth()->user()->name;
         return response()->json($comment, 200);
     }
     public function deleteComment($id)

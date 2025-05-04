@@ -3,65 +3,69 @@ import sent from "../assets/img/sent.svg";
 import logo from "../assets/img/logo.svg";
 import image from "../assets/img/chat_image.png";
 import image2 from "../assets/img//chat_image2.png";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Chat() {
-    const [messages, setMessages] = React.useState([
-        {
-            text: "Morbi tincidunt, lectus eu faucibus dictum, erat turpis scelerisque lectus, a varius nibh arcu et libero. ",
-            owner_image: "../img/example.jpg",
-            name: "name",
-            isMine: true,
-        },
-        {
-            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris suscipit sodales ligula at egestas. Cras porta felis velit, vitae egestas eros elementum ac. Maecenas arcu tellus, blandit sit amet varius ac, laoreet vel neque. Suspendisse sagittis dolor sollicitudin rhoncus euismod. Morbi tincidunt, lectus eu faucibus dictum, erat turpis scelerisque lectus, a varius nibh arcu et libero. Donec condimentum at elit vel feugiat. Suspendisse et urna vitae metus rutrum condimentum.",
-            owner_image: "../img/example.png",
-            name: "aeaea",
-            isMine: false,
-        },
-        {
-            text: "Morbi tincidunt, lectus eu faucibus dictum, erat turpis scelerisque lectus, a varius nibh arcu et libero. Donec condimentum at elit vel feugiat. Suspendisse et urna vitae metus rutrum condimentum.",
-            owner_image: "../img/Example2.svg",
-            name: "NaGiBaToR666",
-            isMine: false,
-        },
-    ]);
+    const user = useSelector((state) => state.auth.user);
+    const navigate = useNavigate();
+    const id = location.pathname.split("/")[2];
+    const [chat, setChat] = React.useState({ messages: [] });
+    React.useEffect(() => {
+        getChat();
+    }, []);
     return (
         <div className="Chat">
             <div>
                 <h1>
                     Чат
-                    <span>TeamLefgen</span>
+                    <span onClick={() => navigate("../team/" + chat.team_id)}>
+                        TeamLefgen
+                    </span>
                 </h1>
                 <div className="messages">
                     <div>
-                        {messages.map((value, i) => (
+                        {chat.messages.map((value, i) => (
                             <div
                                 key={"chat-page-message-" + i}
-                                className={value.isMine ? "mine" : ""}
+                                className={value.id == user.id ? "mine" : ""}
                             >
                                 <div>
                                     <img
                                         alt="Изображение полбзователя"
-                                        src={value.owner_image}
+                                        src={value.image}
                                     />
                                     <h3>{value.name}</h3>
                                 </div>
-                                <p>{value.text}</p>
+                                <p>{value.content}</p>
                             </div>
                         ))}
                     </div>
                 </div>
-                <div className="input">
-                    <input type="text" placeholder="Напишите сообщение" />
-                    <button>
+                <form
+                    className="input"
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            e.preventDefault();
+                            sentMessage();
+                        }
+                    }}
+                >
+                    <input
+                        type="text"
+                        placeholder="Напишите сообщение"
+                        id="chat-message-input"
+                    />
+                    <button onClick={() => sentMessage()} type="button">
                         <img alt="Отправить сообщение" src={sent} />
                     </button>
-                </div>
+                </form>
             </div>
             <img
                 alt="Логотип"
                 src={logo}
                 className="logo"
+                onClick={() => navigate("../")}
             />
             <img
                 alt="Фоновое изображение"
@@ -75,4 +79,52 @@ export default function Chat() {
             />
         </div>
     );
+    function getChat() {
+        if (sessionStorage.getItem("token") == null) return;
+        axios
+            .get(window.location.origin + "/api/chat/" + id, {
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                },
+            })
+            .then((response) => {
+                let chat_response = response.data;
+                chat_response.messages = JSON.parse(chat_response.messages);
+                setChat(response.data);
+                setTimeout(
+                    () =>
+                        document
+                            .querySelector(".Chat .messages")
+                            .scrollTo(0, 10000),
+                    10
+                );
+            });
+    }
+    function sentMessage() {
+        if (sessionStorage.getItem("token") == null) return;
+        const body = {
+            content: document.getElementById("chat-message-input").value.trim(),
+        };
+        if (body.content == "") {
+            return;
+        }
+        axios
+            .post(window.location.origin + "/api/chat/" + id, body, {
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                },
+            })
+            .then((response) => {
+                chat.messages.push(response.data);
+                setChat({ ...chat });
+                document.getElementById("chat-message-input").value = "";
+                setTimeout(
+                    () =>
+                        document
+                            .querySelector(".Chat .messages")
+                            .scrollTo(0, 10000),
+                    100
+                );
+            });
+    }
 }

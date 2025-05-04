@@ -11,7 +11,7 @@ export default function ThirdStep({ favoriteThinks }) {
     const user = useSelector((state) => state.auth.user);
     const [error, setError] = React.useState({ input: 0, message: "" });
     const [selectGender, setSelectGender] = React.useState(
-        sessionStorage.getItem("token") != null ? user.gender : 0
+        user.name != null ? user.gender : 0
     );
     return (
         <>
@@ -96,9 +96,9 @@ export default function ThirdStep({ favoriteThinks }) {
     );
     function sendSurvey() {
         const body = {
-            name: document.getElementById("survey-name").value,
+            name: document.getElementById("survey-name").value.trim(),
             date_of_birth: document.getElementById("survey-date").value,
-            description: document.getElementById("survey-description").value,
+            description: document.getElementById("survey-description").value.trim(),
             gender: selectGender,
             favorite_genres: favoriteThinks.favoriteGenres,
             favorite_games: favoriteThinks.favoriteGames,

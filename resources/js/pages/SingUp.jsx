@@ -14,7 +14,7 @@ export default function SingUp() {
             password: document.getElementById("sing-up-password").value,
             password_repeat: document.getElementById("sing-up-password-repeat")
                 .value,
-            email: document.getElementById("sing-up-email").value,
+            email: document.getElementById("sing-up-email").value.trim(),
             accept: document.getElementById("sing-up-accept").checked,
             recaptcha_token: null,
         };

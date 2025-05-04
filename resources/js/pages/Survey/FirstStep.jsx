@@ -5,7 +5,7 @@ export default function FirstStep({ setStep, setFavoriteGenres }) {
     const [error, setError] = React.useState(false);
     const user = useSelector((state) => state.auth.user);
     const [selected, setSelected] = React.useState(
-        user != null
+        user.name != null
             ? user.favorite_genres.split("&")
             : null
     );

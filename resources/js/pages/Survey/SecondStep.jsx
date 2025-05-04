@@ -5,7 +5,7 @@ export default function SecondStep({ setStep, setFavoriteGames }) {
     const user = useSelector((state) => state.auth.user);
     const [error, setError] = React.useState(false);
     const [selected, setSelected] = React.useState(
-        sessionStorage.getItem("token") != null
+        user.name
             ? user.favorite_games.split("&")
             : null
     );

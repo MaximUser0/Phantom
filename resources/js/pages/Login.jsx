@@ -12,7 +12,7 @@ export default function Login() {
     function LogIn() {
         const body = {
             password: document.getElementById("login-password").value,
-            name: document.getElementById("login").value,
+            name: document.getElementById("login").value.trim(),
             recaptcha_token: null,
         };
         let error_check =

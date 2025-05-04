@@ -9,6 +9,7 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\TeamParticipantController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,17 +43,36 @@ Route::middleware('auth:sanctum')->group(
         Route::post('survey', [AuthController::class, 'survey']);
 
         Route::get('team', [TeamController::class, 'index']);
-
-        Route::post('request/{team_id}', [TeamController::class, 'request']);
+        Route::get('team/my', [TeamController::class, 'indexMy']);
+        Route::get('team/{id}', [TeamController::class, 'show']);
+        Route::post('team', [TeamController::class, 'store']);
+        Route::post('team/image', [TeamController::class, 'updateImage']);
+        Route::post('team/{id}', [TeamController::class, 'update']);
+        Route::delete('team/participant/{participant_id}', [TeamParticipantController::class, 'delete']);
+        Route::delete('team/out/{participant_id}', [TeamParticipantController::class, 'outFormTeam']);
+        Route::delete('team/{id}', [TeamController::class, 'delete']);
+        Route::get('request', [TeamParticipantController::class, 'indexRequests']);
+        Route::get('request/my', [TeamParticipantController::class, 'indexMyRequests']);
+        Route::post('request/accept/{id}', [TeamParticipantController::class, 'update']);
+        Route::post('request/{team_id}', [TeamParticipantController::class, 'request']);
 
         Route::get('news', [NewsController::class, 'index']);
+        Route::get('news/{id}', [NewsController::class, 'show']);
+        Route::post('news/{id}/comment', [NewsController::class, 'addComment']);
 
         Route::get('forum', [ForumController::class, 'index']);
+        Route::get('forum/{id}', [ForumController::class, 'show']);
+        Route::post('forum/{id}/message', [ForumController::class, 'sentMessage']);
 
         Route::get('game', [GameController::class, 'index']);
+        Route::get('game/{id}', [GameController::class, 'show']);
+
+        Route::get('chat/{id}', [ChatController::class, 'show']);
+        Route::post('chat/{id}', [ChatController::class, 'sentMessage']);
+
 
         /*Route::post('article/{id}/comment', [ArticleController::class, 'addComment']);
-        Route::post('news/{id}/comment', [NewsController::class, 'addComment']);
+        
 
         Route::get('friend', [FriendController::class, 'index']);
         Route::get('friend/{id}', [FriendController::class, 'indexOfAnother']);

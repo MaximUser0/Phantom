@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string("title");
             $table->bigInteger("owner_id")->unsigned();
             $table->text("description");
-            $table->text("image");
+            $table->text("image")->nullable();
             $table->text("genres");
 
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');

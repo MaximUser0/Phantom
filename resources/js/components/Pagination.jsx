@@ -30,15 +30,15 @@ export default function Pagination({ info, active, setActive }) {
                 ""
             )}
             {pagination.map((text, i) => (
-                <>
+                <React.Fragment key={"forums-pagination-" + i}>
                     {info.last_page < 5 ||
                     active == i ||
                     active == i + 1 ||
                     active == i - 1 ||
                     (active == 0 && i == 2) ||
-                    (active == info.last_page - 1 && i == info.last_page - 3) ? (
+                    (active == info.last_page - 1 &&
+                        i == info.last_page - 3) ? (
                         <p
-                            key={"forums-pagination-" + i}
                             className={active == i ? "active" : ""}
                             onClick={() => {
                                 setActive(i);
@@ -49,7 +49,7 @@ export default function Pagination({ info, active, setActive }) {
                     ) : (
                         ""
                     )}
-                </>
+                </React.Fragment>
             ))}
             {info.last_page > 4 && info.last_page - active > 2 ? (
                 <>

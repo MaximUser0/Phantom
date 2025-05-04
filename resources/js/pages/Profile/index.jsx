@@ -92,11 +92,11 @@ export default function Profile() {
                         <p>Команды</p>
                         <p>{statistics.teams}</p>
                     </div>
-                    <div>
+                    <div onClick={() => navigate("../news")}>
                         <p>Комментарии</p>
                         <p>{statistics.comments}</p>
                     </div>
-                    <div>
+                    <div onClick={() => navigate("../forum")}>
                         <p>Форумы</p>
                         <p>{statistics.forums}</p>
                     </div>
@@ -115,11 +115,11 @@ export default function Profile() {
                     <p>Команды</p>
                     <p>{statistics.teams}</p>
                 </div>
-                <div>
+                <div onClick={() => navigate("../news")}>
                     <p>Комментарии</p>
                     <p>{statistics.comments}</p>
                 </div>
-                <div>
+                <div onClick={() => navigate("../forum")}>
                     <p>Форумы</p>
                     <p>{statistics.forums}</p>
                 </div>

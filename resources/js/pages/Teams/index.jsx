@@ -16,21 +16,22 @@ export default function Teams() {
             <div>
                 {teams.map((value, i) => (
                     <div key={"teams-page-team-" + i}>
-                        <img alt="Изображение команды" src={value.image} />
+                        <img alt="Изображение команды" src={value.image != null ? value.image : "../img/Example2.svg"} />
                         <div>
                             <h2>{value.title}</h2>
-                            <p>{value.description}</p>
+                            <p>{value.description.slice(0, 90)}</p>
                             <button
                                 onClick={() =>
                                     buttonActions(
                                         value.is_participant,
+                                        value.is_owner,
                                         value.is_request,
                                         i,
                                         value.id
                                     )
                                 }
                             >
-                                {value.is_participant
+                                {value.is_participant || value.is_owner
                                     ? "Перейти"
                                     : requestResponses[value.is_request]}
                             </button>
@@ -54,8 +55,8 @@ export default function Teams() {
                 setTeams(response.data);
             });
     }
-    function buttonActions(is_participant, is_request, i, id) {
-        if (is_participant) {
+    function buttonActions(is_participant, is_owner, is_request, i, id) {
+        if (is_participant || is_owner) {
             navigate("../team/" + id);
             return;
         }

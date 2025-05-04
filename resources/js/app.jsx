@@ -34,7 +34,8 @@ export default function App() {
                 <Route path="/news" element={<News />} />
                 <Route path="/news/:id" element={<OneNews />} />
                 <Route path="/team" element={<Teams />} />
-                <Route path="/team-create" element={<TeamCreate />} />
+                <Route path="/team-create" element={<TeamCreate update={false}/>} />
+                <Route path="/team-create/:id" element={<TeamCreate update={true}/>} />
                 <Route path="/team/:id" element={<Team />} />
                 <Route path="/my-team" element={<MyTeams />} />
 

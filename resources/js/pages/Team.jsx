@@ -5,25 +5,28 @@ import { useNavigate } from "react-router-dom";
 
 export default function Team() {
     const navigate = useNavigate();
+    const id = location.pathname.split("/")[2];
     const [team, setTeam] = React.useState({
-        image: "../img/Example2.svg",
-        title: "TeamLefgen",
-        categories: ["Стратегия", "Шутер", "Экшн"],
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris suscipit sodales ligula at egestas. Cras porta felis velit, vitae egestas eros elementum ac. Maecenas arcu tellus, blandit sit amet varius ac, laoreet vel neque. Suspendisse sagittis dolor sollicitudin rhoncus euismod. Morbi tincidunt, lectus eu faucibus dictum, erat turpis scelerisque lectus, a varius nibh arcu et libero. Donec condimentum at elit vel feugiat. Suspendisse et urna vitae metus rutrum condimentum.",
-        owner_image: "../img/example.png",
-        name: "fantom_skitsa",
-        participants: [
-            { image: "../img/example.jpg", name: "aeaea" },
-            { image: "../img/Example2.svg", name: "victor_aSdem" },
-        ],
+        genres: "",
+        participants: [],
     });
+    React.useEffect(() => {
+        getTeam();
+    }, []);
+
     return (
         <div className="Team">
             <h2 className="mobile-only">{team.title}</h2>
             <div className="buttons">
                 <div>
-                    <img alt="Изображение пользователя" src={team.image} />
+                    <img
+                        alt="Изображение пользователя"
+                        src={
+                            team.image != null
+                                ? team.image
+                                : "../img/Example2.svg"
+                        }
+                    />
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="66"
@@ -51,9 +54,29 @@ export default function Team() {
                         />
                     </svg>
                 </div>
-                <button className="desktop-only">Удалить команду</button>
-                <button className="desktop-only">Выбрать файл</button>
-                <button className="light-button desktop-only">
+                <button className="desktop-only" onClick={() => deleteTeam()}>
+                    Удалить команду
+                </button>
+                <button
+                    className="desktop-only"
+                    onClick={() => {
+                        if (team.is_owner) {
+                            document
+                                .getElementById("team-input-for-image")
+                                .click();
+                        }
+                    }}
+                >
+                    Выбрать файл
+                </button>
+                <button
+                    className="light-button desktop-only"
+                    onClick={() => {
+                        if (team.is_owner) {
+                            navigate("../team-create/" + id);
+                        }
+                    }}
+                >
                     Редактировать
                 </button>
                 <div className="gradient"></div>
@@ -62,16 +85,41 @@ export default function Team() {
                 <h2 className="desktop-only">{team.title}</h2>
                 <p>{team.description}</p>
                 <div className="mobile-only">
-                    <button>Удалить команду</button>
-                    <button>Выбрать файл</button>
-                    <button className="light-button">
+                    <button onClick={() => deleteTeam()}>
+                        Удалить команду
+                    </button>
+                    <button
+                        onClick={() => {
+                            if (team.is_owner) {
+                                document
+                                    .getElementById("team-input-for-image")
+                                    .click();
+                            }
+                        }}
+                    >
+                        Выбрать файл
+                    </button>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        id="team-input-for-image"
+                        onChange={(e) => changeImage(e.target.files[0])}
+                    />
+                    <button
+                        className="light-button"
+                        onClick={() => {
+                            if (team.is_owner) {
+                                navigate("../team-create/"+ id);
+                            }
+                        }}
+                    >
                         Редактировать
                     </button>
                 </div>
                 <h3>Категории игр команды</h3>
                 <div className="categories">
-                    {team.categories.map((category, i) => (
-                        <p key={"team-page-category-" + i}>{category}</p>
+                    {team.genres.split("&").map((genre, i) => (
+                        <p key={"team-page-category-" + i}>{genre}</p>
                     ))}
                 </div>
                 <h3>Участники</h3>
@@ -86,7 +134,23 @@ export default function Team() {
                 <div className="participants">
                     {team.participants.map((participant, i) => (
                         <div key={"team-page-participant-" + i}>
-                            <div>
+                            <div
+                                onClick={() => {
+                                    const elem = document.getElementById(
+                                        "team-page-participant-div-" + i
+                                    );
+                                    if (window.screen.width > 1080) {
+                                        deleteParticipant(participant.id, i);
+                                        return;
+                                    }
+                                    if (elem.classList.contains("clicked")) {
+                                        deleteParticipant(participant.id, i);
+                                        return;
+                                    }
+                                    elem.classList.add("clicked");
+                                }}
+                                id={"team-page-participant-div-" + i}
+                            >
                                 <img
                                     alt="Изображение пользователя"
                                     src={participant.image}
@@ -100,13 +164,13 @@ export default function Team() {
             <div className="links">
                 <div className="chat">
                     <h2>Чат команды</h2>
-                    <button onClick={() => navigate("../chat/1")}>
+                    <button onClick={() => navigate("../chat/" + team.chat_id)}>
                         Перейти в чат
                     </button>
                 </div>
                 <div className="find">
                     <h2>Найти команду</h2>
-                    <button>Искать</button>
+                    <button onClick={() => navigate("../team")}>Искать</button>
                 </div>
             </div>
             <img
@@ -121,4 +185,85 @@ export default function Team() {
             />
         </div>
     );
+    function getTeam() {
+        if (sessionStorage.getItem("token") == null) return;
+        axios
+            .get(window.location.origin + "/api/team/" + id, {
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                },
+            })
+            .then((response) => {
+                console.log(response.data);
+                setTeam(response.data);
+            });
+    }
+    function changeImage(file) {
+        if (!team.is_owner) {
+            return;
+        }
+        const body = new FormData();
+        body.append("image", file);
+        body.append("team_id", id);
+        axios
+            .post(window.location.origin + "/api/team/image", body, {
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                },
+            })
+            .then((response) => {
+                team.image = response.data;
+                setTeam({ ...team });
+            })
+            .catch(() => {
+                alert("Максимальный размер изображения 4МБ");
+            });
+    }
+    function deleteTeam() {
+        if (!team.is_owner) {
+            return;
+        }
+        if (
+            !confirm("Вы хотите удалить команду? Это действие нельзя отменить.")
+        )
+            return;
+        axios
+            .delete(window.location.origin + "/api/team/" + id, {
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                },
+            })
+            .then((response) => {
+                navigate("../team");
+            })
+            .catch(() => {
+                alert("Не удалось удалить команду");
+            });
+    }
+    function deleteParticipant(index, i) {
+        if (!team.is_owner) {
+            return;
+        }
+        if (!confirm("Удалить участника?")) {
+            if (window.screen.width <= 1080) {
+                document
+                    .getElementById("team-page-participant-div-" + i)
+                    .classList.remove("clicked");
+            }
+            return;
+        }
+        axios
+            .delete(window.location.origin + "/api/team/participant/" + index, {
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                },
+            })
+            .then(() => {
+                team.participants.splice(i, 1);
+                setTeam({ ...team });
+            })
+            .catch(() => {
+                alert("Не удалось удалить участника");
+            });
+    }
 }

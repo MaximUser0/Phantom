@@ -74,6 +74,13 @@ export default function Header() {
                     >
                         Игры
                     </Link>
+                    {location.pathname == "/" ? (
+                        ""
+                    ) : (
+                        <a onClick={() => logout()} className="logout">
+                            Выйти
+                        </a>
+                    )}
                 </>
             ) : (
                 <>
@@ -98,11 +105,26 @@ export default function Header() {
             })
             .then((response) => {
                 console.log(response.data);
-                if(response.data.date_of_birth == null){
+                if (response.data.date_of_birth == null) {
                     navigate("../survey");
-                    return
+                    return;
                 }
                 dispatch(setUser(response.data));
+            });
+    }
+    function logout() {
+        if (sessionStorage.getItem("token") == null) return;
+        axios
+            .get(window.location.origin + "/api/logout", {
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                },
+            })
+            .then(() => {
+                sessionStorage.removeItem("token")
+                navigate("../");
+                dispatch(setUser({}));
+                dispatch(setToken(null));
             });
     }
 }
