@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import back_image from "../assets/img/login_image.png";
 import { Link, useNavigate } from "react-router-dom";
 import { setToken, setUser } from "../redux/slices/authSlice";
 import { useDispatch } from "react-redux";
@@ -9,6 +10,61 @@ export default function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    return (
+        <div className="Login">
+            <form
+                className="form"
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        LogIn();
+                    }
+                }}
+                onChange={() => setError({ input: 0, message: "" })}
+            >
+                <h1>Авторизация</h1>
+                <Link to={"../sing-up"} className="desktop-only">
+                    Регистрация
+                </Link>
+                <label>Логин</label>
+                <input
+                    type="text"
+                    placeholder="Логин"
+                    id="login"
+                    className={error.input == 1 ? "error" : ""}
+                />
+                <label>Пароль</label>
+                <input
+                    type="password"
+                    placeholder="Пароль"
+                    id="login-password"
+                    className={error.input == 2 ? "error" : ""}
+                />
+                <p>
+                    Забыли пароль? <a>Смена пароля</a>
+                </p>
+                <button
+                    onClick={(e) => {
+                        e.preventDefault();
+                        LogIn();
+                    }}
+                >
+                    Войти
+                </button>
+                <Link to={"../sing-up"} className="mobile-only">
+                    Регистрация
+                </Link>
+                {error.input != 0 ? (
+                    <p className="error-message">{error.message}</p>
+                ) : (
+                    ""
+                )}
+            </form>
+            <video id="back-video" autoPlay muted loop>
+                <source src="img/background.mp4" type="video/mp4" />
+            </video>
+            <img id="back-img" src={back_image}/>
+        </div>
+    );
     function LogIn() {
         const body = {
             password: document.getElementById("login-password").value,
@@ -67,56 +123,4 @@ export default function Login() {
                 });
         });
     }
-
-    return (
-        <div className="Login">
-            <form
-                className="form"
-                onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                        LogIn();
-                    }
-                }}
-                onChange={() => setError({ input: 0, message: "" })}
-            >
-                <h1>Авторизация</h1>
-                <Link to={"../sing-up"} className="desktop-only">
-                    Регистрация
-                </Link>
-                <label>Логин</label>
-                <input
-                    type="text"
-                    placeholder="Логин"
-                    id="login"
-                    className={error.input == 1 ? "error" : ""}
-                />
-                <label>Пароль</label>
-                <input
-                    type="password"
-                    placeholder="Пароль"
-                    id="login-password"
-                    className={error.input == 2 ? "error" : ""}
-                />
-                <p>
-                    Забыли пароль? <a>Смена пароля</a>
-                </p>
-                <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        LogIn();
-                    }}
-                >
-                    Войти
-                </button>
-                <Link to={"../sing-up"} className="mobile-only">
-                    Регистрация
-                </Link>
-                {error.input != 0 ? (
-                    <p className="error-message">{error.message}</p>
-                ) : (
-                    ""
-                )}
-            </form>
-        </div>
-    );
 }

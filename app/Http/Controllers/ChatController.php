@@ -12,6 +12,11 @@ class ChatController extends Controller
     public function show($id)
     {
         $chat = Chat::findOrFail($id);
+        $team = Team::findOrFail($chat->team_id);
+        $isParticipant = TeamParticipants::where("team_id", $chat->team_id)->where("user_id", auth()->user()->id)->count() > 0;
+        if ($team->owner_id != auth()->user()->id && !auth()->user()->is_admin && !$isParticipant) {
+            return response("Forbidden for you", 404);
+        }
         return response()->json($chat, 200);
     }
     public function sentMessage($id, Request $request)

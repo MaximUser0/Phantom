@@ -19,14 +19,6 @@ class ForumController extends Controller
         }
         return response()->json($forums, 200);
     }
-    /*public function myForums()
-    {
-        $forums = ForumParticipant::where("user_id", auth()->user()->id)
-            ->join('forums', 'forums.id', '=', 'forum_participants.forum_id')
-            ->select('forums.id AS id', 'forum_participants.id AS participant_id', 'src', 'title AS name', 'description', 'messages')
-            ->get();
-        return response()->json($forums, 200);
-    }*/
     public function show($id)
     {
         $forum = Forum::where("forums.id", "=", $id)
@@ -35,36 +27,21 @@ class ForumController extends Controller
             ->first();
         return response()->json($forum, 200);
     }
-    /*public function joinTo(Request $request)
-    {
-        $this->validate($request, [
-            'forum_id' => "required|exists:forums,id",
-        ]);
-        $alreadyExist = ForumParticipant::where('forum_id', $request->forum_id)->where('user_id', auth()->user()->id)->count() != 0;
-        if ($alreadyExist) {
-            return response()->json('', 201);
-        }
-        $forum = ForumParticipant::create(['forum_id' => $request->forum_id, 'user_id' => auth()->user()->id]);
-        return response()->json($forum, 201);
-    }
-    public function outFrom($id)
-    {
-        $forum = ForumParticipant::where('forum_id', $id)->where('user_id', auth()->user()->id)->first();
-        $forum->delete();
-        return response()->json("", 204);
-    }*/
     public function create(Request $request)
     {
         $check = [
             'title' => 'required|max:255',
             'description' => 'required',
-            'text' => 'required',
-            'image' => 'image|max:4096',
+            'images.*' => 'image|max:4096',
         ];
         $forum = $this->validate($request, $check);
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->storeAs('public/forum', $imageName);
-        $forum['src'] = asset('storage/forum/' . $imageName);
+        $images = "";
+        foreach ($request->images as $key => $image) {
+            $imageName = time() . $key . '.' . $image->extension();
+            $image->storeAs('public/forum/images', $imageName);
+            $images .= ($key == 0 ? "" : "&") . asset('storage/forum/images/' . $imageName);
+        }
+        $forum['images'] = $images;
         $forum['owner_id'] = auth()->user()->id;
         $forum['messages'] = '[]';
         $forum = Forum::create($forum);
@@ -81,8 +58,8 @@ class ForumController extends Controller
         $new_message = [
             'created_at' => date('d.m.y'),
             'content' => $request->content,
-            'name' => auth()->user()->name,
-            'image' => auth()->user()->image,
+            //'name' => auth()->user()->name,
+            //'image' => auth()->user()->image,
             'id' => auth()->user()->id
         ];
         $array[] = $new_message;
@@ -97,8 +74,13 @@ class ForumController extends Controller
     public function delete($id)
     {
         $forum = Forum::findOrFail($id);
-        if ($forum->src != null) {
-            Storage::disk('public')->delete(explode("storage/", $forum->src)[1]);
+        if ($forum->image != null) {
+            Storage::disk('public')->delete(explode("storage/", $forum->image)[1]);
+        }
+        if ($forum->images != null) {
+            foreach (explode('&', $forum->images) as $image) {
+                Storage::disk('public')->delete(explode("storage/", $image)[1]);
+            }
         }
         $forum->delete();
         return response()->json("", 204);

@@ -10,7 +10,7 @@ class Forum extends Model
     use HasFactory;
     protected $fillable = [
         "owner_id",
-        "src",
+        "images",
         "title",
         "description",
         "messages"

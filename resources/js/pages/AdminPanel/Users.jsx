@@ -2,58 +2,12 @@ import React from "react";
 import Pagination from "../../components/Pagination";
 
 export default function Users() {
-    const [users, setUsers] = React.useState([
-        {
-            image: "../img/example.png",
-            name: "fantom_skitsa",
-            dateOfBirth: "04.09.2005",
-            gender: "муж",
-            comments_number: 2,
-            teams_number: 2,
-            forums_number: 2,
-            isBlocked: false,
-        },
-        {
-            image: "../img/example.png",
-            name: "fantom_skitsa",
-            dateOfBirth: "04.09.2005",
-            gender: "муж",
-            comments_number: 2,
-            teams_number: 2,
-            forums_number: 2,
-            isBlocked: false,
-        },
-        {
-            image: "../img/example.png",
-            name: "fantom_skitsa",
-            dateOfBirth: "04.09.2005",
-            gender: "муж",
-            comments_number: 2,
-            teams_number: 2,
-            forums_number: 2,
-            isBlocked: true,
-        },
-        {
-            image: "../img/example.png",
-            name: "fantom_skitsa",
-            dateOfBirth: "04.09.2005",
-            gender: "муж",
-            comments_number: 2,
-            teams_number: 2,
-            forums_number: 2,
-            isBlocked: false,
-        },
-        {
-            image: "../img/example.png",
-            name: "fantom_skitsa",
-            dateOfBirth: "04.09.2005",
-            gender: "муж",
-            comments_number: 2,
-            teams_number: 2,
-            forums_number: 2,
-            isBlocked: false,
-        },
-    ]);
+    const [paginationInfo, setPaginationInfo] = React.useState({});
+    const [active, setActive] = React.useState(0);
+    const [users, setUsers] = React.useState([]);
+    React.useEffect(() => {
+        getUsers();
+    }, [active]);
     return (
         <div className="Users">
             <div className="list">
@@ -62,22 +16,28 @@ export default function Users() {
                         <img alt="Изображение пользователя" src={value.image} />
                         <div>
                             <h3>{value.name}</h3>
-                            <p>год рождения: {value.dateOfBirth}</p>
+                            <p>год рождения: {value.date_of_birth}</p>
                             <p>пол: {value.gender}.</p>
                         </div>
                         <div className="common-info">
-                            <p>Комментарии: {value.comments_number}</p>
-                            <p>Команды: {value.teams_number}</p>
-                            <p>Форумы: {value.forums_number}</p>
+                            <p>Комментарии: {value.comments}</p>
+                            <p>Команды: {value.teams}</p>
+                            <p>Форумы: {value.forums}</p>
                         </div>
                         <div className="buttons">
                             <button
-                                className={value.isBlocked ? "green" : "gray"}
+                                className={value.is_blocked ? "green" : "gray"}
+                                onClick={() =>
+                                    value.is_blocked ? blockUser(value.id, i) : ""
+                                }
                             >
                                 Разбанить
                             </button>
                             <button
-                                className={value.isBlocked ? "gray" : "red"}
+                                className={value.is_blocked ? "gray" : "red"}
+                                onClick={() =>
+                                    !value.is_blocked ? blockUser(value.id, i) : ""
+                                }
                             >
                                 Забанить
                             </button>
@@ -85,7 +45,39 @@ export default function Users() {
                     </div>
                 ))}
             </div>
-            <Pagination />
+            <Pagination
+                info={paginationInfo}
+                active={active}
+                setActive={setActive}
+            />
         </div>
     );
+    function getUsers() {
+        if (sessionStorage.getItem("token") == null) return;
+        axios
+            .get(window.location.origin + "/api/users?page=" + (active + 1), {
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                },
+            })
+            .then((response) => {
+                setUsers(response.data.data);
+                setPaginationInfo({
+                    last_page: response.data.last_page,
+                    current_page: response.data.current_page,
+                });
+            });
+    }
+    function blockUser(id, i) {
+        axios
+            .get(window.location.origin + "/api/user/block/" + id, {
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                },
+            })
+            .then((response) => {
+                users[i].is_blocked = response.data.is_blocked;
+                setUsers([...users]);
+            });
+    }
 }

@@ -3,12 +3,11 @@ import logo from "../../assets/img/logo.svg";
 import image1 from "../../assets/img/create_team_image.png";
 import image2 from "../../assets/img/create_team_image2.png";
 import image_mobile from "../../assets/img/create_team_image.svg";
-import arrow from "../../assets/img/arrow.svg";
 import { useNavigate } from "react-router-dom";
+import GenresSelect from "../../components/GenresSelect";
 
 export default function Create({ update }) {
     const navigate = useNavigate();
-    const [showGenres, setShowGenres] = React.useState(false);
     const [team, setTeam] = React.useState({ genres: "" });
     const [error, setError] = React.useState(0);
     const [genres, setGenres] = React.useState([
@@ -28,14 +27,7 @@ export default function Create({ update }) {
     }, []);
     return (
         <div className="CreateTeam">
-            <form
-                onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                        create();
-                    }
-                }}
-                onChange={() => setError(0)}
-            >
+            <form onChange={() => setError(0)}>
                 <h1>Создание команды</h1>
                 <label>Название команды</label>
                 <input
@@ -61,38 +53,7 @@ export default function Create({ update }) {
                 )}
                 <label>Жанры</label>
                 <div className="genre">
-                    <div className="select">
-                        <div id="team-genre-select">
-                            <p>{getGenresForP()}</p>
-                            <img
-                                alt="Выбрать жанр"
-                                src={arrow}
-                                onClick={() => setShowGenres(!showGenres)}
-                            />
-                            <div
-                                style={{
-                                    display: showGenres ? "flex" : "none",
-                                }}
-                            >
-                                {genres.map((genre, i) => (
-                                    <div key={"team-create-genres-select-" + i}>
-                                        <input
-                                            type="checkbox"
-                                            id={"team-create-checkbox-" + i}
-                                            checked={genre.checked}
-                                            onChange={() => {
-                                                genres[i].checked =
-                                                    !genres[i].checked;
-                                                setGenres([...genres]);
-                                                setError(0);
-                                            }}
-                                        />
-                                        <label>{genre.title}</label>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
+                    <GenresSelect genres={genres} setGenres={setGenres} />
                     <div className="file">
                         <button
                             type="button"
@@ -168,13 +129,6 @@ export default function Create({ update }) {
             />
         </div>
     );
-    function getGenresForP() {
-        const text = genres
-            .filter((elem) => elem.checked)
-            .map((elem) => elem.title)
-            .toString();
-        return text != "" ? text : "Не выбрано";
-    }
     function create() {
         const body = {
             title: document.getElementById("team-create-title").value.trim(),

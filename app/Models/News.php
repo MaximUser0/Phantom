@@ -12,7 +12,6 @@ class News extends Model
         'title',
         'content',
         'description',
-        'image',
-        'owner_id'
+        'image'
     ];
 }

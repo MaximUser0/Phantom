@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../../assets/img/logo.svg";
 import mobile_menu from "../../assets/img/mobile_menu.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../redux/slices/authSlice";
 import axios from "axios";
 
@@ -10,34 +10,11 @@ export default function Header() {
     const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const isAdmin = false;
-    const locationWithout = [
-        "login",
-        "sing-up",
-        "survey",
-        "chat",
-        "admin-panel",
-    ];
-    React.useEffect(() => {
-        getUser();
-    }, []);
-    return (
-        <header
-            className={
-                "Header" +
-                (locationWithout.includes(location.pathname.split("/")[1])
-                    ? " block-hidden"
-                    : "") +
-                (location.pathname.split("/")[1] == "team-create"
-                    ? " header-mobile-only"
-                    : "")
-            }
-        >
-            <img src={mobile_menu} alt="Меню" className="mobile-only" />
-
-            <Link to={"../"} className="logo">
-                <img src={logo} alt="Логотип" />
-            </Link>
+    const user = useSelector((state) => state.auth.user);
+    const locationWithout = ["login", "sing-up", "survey", "admin-panel"];
+    const [showMobileMenu, setShowMobileMenu] = React.useState(false);
+    const links = (
+        <>
             {sessionStorage.getItem("token") != null ? (
                 <>
                     <Link
@@ -88,8 +65,46 @@ export default function Header() {
                     <Link to={"../login"}>Войти</Link>
                 </>
             )}
-            {isAdmin ? (
+            {user.is_admin ? (
                 <Link to={"../admin-panel/users"}>Админ-панель</Link>
+            ) : (
+                ""
+            )}
+        </>
+    );
+    React.useEffect(() => {
+        getUser();
+    }, []);
+    return (
+        <header
+            className={
+                "Header" +
+                (locationWithout.includes(location.pathname.split("/")[1])
+                    ? " block-hidden"
+                    : "") +
+                (location.pathname.split("/")[1] == "team-create" ||
+                location.pathname.split("/")[1] == "forum-create" ||
+                location.pathname.split("/")[1] == "chat"
+                    ? " header-mobile-only"
+                    : "")
+            }
+        >
+            <img
+                src={mobile_menu}
+                alt="Меню"
+                className="mobile-only"
+                onClick={() => setShowMobileMenu(!showMobileMenu)}
+            />
+
+            <Link to={"../"} className="logo">
+                <img src={logo} alt="Логотип" />
+            </Link>
+            {window.screen.width > 1080 ? (
+                links
+            ) : showMobileMenu ? (
+                <div className="mobile-menu" onClick={() => setShowMobileMenu(false)}>
+                    {links}
+                </div>
             ) : (
                 ""
             )}
@@ -110,6 +125,10 @@ export default function Header() {
                     return;
                 }
                 dispatch(setUser(response.data));
+            })
+            .catch(() => {
+                sessionStorage.removeItem("token");
+                navigate("../");
             });
     }
     function logout() {
@@ -121,7 +140,7 @@ export default function Header() {
                 },
             })
             .then(() => {
-                sessionStorage.removeItem("token")
+                sessionStorage.removeItem("token");
                 navigate("../");
                 dispatch(setUser({}));
                 dispatch(setToken(null));

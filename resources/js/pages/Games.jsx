@@ -31,7 +31,7 @@ export default function Games() {
                         <div className="genre">
                             <div>
                                 <p>Жанр:</p>
-                                {value.genres.split("&").map((text, i) => (
+                                {value.genres.split("&").slice(0, 3).map((text, i) => (
                                     <p key={"games-genre-" + i}>{text}</p>
                                 ))}
                             </div>

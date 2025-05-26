@@ -31,6 +31,14 @@ class TeamController extends Controller
         }
         return response()->json($teams, 200);
     }
+    public function indexPaginate()
+    {
+        $teams = Team::paginate(5);
+        foreach ($teams as $team) {
+            $team['participants'] = TeamParticipants::where('team_id', "=", $team->id)->count() + 1;
+        }
+        return response()->json($teams, 200);
+    }
     public function indexMy()
     {
         $teams_owner = Team::where("owner_id", auth()->user()->id)->get();
@@ -52,6 +60,10 @@ class TeamController extends Controller
             ->join("users", "users.id", "=", "teams.owner_id")
             ->select("title", "teams.description", "teams.image AS image", "users.image AS owner_image", "name", "genres", "teams.owner_id AS owner_id")
             ->first();
+        $isParticipant = TeamParticipants::where("team_id", $id)->where("user_id", auth()->user()->id)->count() > 0;
+        if ($team->owner_id != auth()->user()->id && !auth()->user()->is_admin && !$isParticipant) {
+            return response("Forbidden for you", 404);
+        }
         $team["participants"] = TeamParticipants::where("team_id", $id)
             ->join("users", "users.id", "=", "team_participants.user_id")
             ->select("image", "name", "team_participants.id AS id")->get();
@@ -124,7 +136,7 @@ class TeamController extends Controller
     public function delete($id)
     {
         $team = Team::findOrFail($id);
-        if ($team->owner_id != auth()->user()->id) {
+        if ($team->owner_id != auth()->user()->id || !auth()->user()->is_admin) {
             return response("Forbidden for you", 404);
         }
         if ($team->image != null) {

@@ -28,7 +28,12 @@ export default function Forum() {
 
     return (
         <div className="Forums">
-            <h1>Форумы</h1>
+            <h1>
+                Форумы{" "}
+                <span onClick={() => navigate("../forum-create")}>
+                    Создать +
+                </span>
+            </h1>
             <div className="list">
                 {forums.map((value, i) => (
                     <div
@@ -55,7 +60,7 @@ export default function Forum() {
                                 {value.created_at.slice(8, 10) +
                                     " " +
                                     months[
-                                        Number(value.created_at.slice(5, 7))
+                                        Number(value.created_at.slice(5, 7)) - 1
                                     ] +
                                     " " +
                                     value.created_at.slice(0, 4)}

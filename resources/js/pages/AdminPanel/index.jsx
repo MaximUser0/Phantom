@@ -53,7 +53,7 @@ export default function AdminPanel() {
                 </div>
                 <p>Выход</p>
             </div>
-            {pages[location.pathname.split("/admin-panel/")[1]]}
+            {pages[location.pathname.split("/")[2]]}
         </div>
     );
 }

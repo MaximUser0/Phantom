@@ -6,6 +6,7 @@ use App\Models\ForumParticipant;
 use App\Models\NewsComment;
 use App\Models\TeamParticipants;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -54,7 +55,30 @@ class UserController extends Controller
 
     public function indexAll()
     {
-        return response()->json(User::select('id', 'name', 'src', 'is_blocked')->get(), 200);
+        $users = User::where('is_admin', 0)->select('id', 'name', 'image', 'is_blocked', 'date_of_birth', 'gender')->paginate(5);
+        foreach ($users as $user) {
+            $user['teams'] = TeamParticipants::where("user_id", "=", $user->id)->count();
+            $user['comments'] = NewsComment::where("user_id", "=", $user->id)->count();
+            $user['forums'] = ForumParticipant::where("user_id", "=", $user->id)->count();
+        }
+        return response()->json($users, 200);
+    }
+    public function indexByArray(Request $request)
+    {
+        $users = new Collection();
+        $this->validate($request, [
+            'users' => 'required|json',
+        ]);
+        $list = json_decode($request['users'], true);
+        foreach ($list as $item) {
+            $users = $users->merge(
+                User::where("id", $item)
+                    ->select("image", "name", "id")
+                    ->orderBy('id')
+                    ->get()
+            );
+        }
+        return response()->json($users, 200);
     }
     public function block($id)
     {
