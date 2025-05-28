@@ -98,7 +98,15 @@ export default function Home() {
                             друзей!
                         </p>
                     </div>
-                    <button>Регистрация</button>
+                    <button
+                        onClick={() => {
+                            sessionStorage.getItem("token") != null
+                                ? navigate("/profile")
+                                : navigate("/sing-up");
+                        }}
+                    >
+                        Регистрация
+                    </button>
                 </div>
 
                 <img className="back" alt="Фон" src={image2} />

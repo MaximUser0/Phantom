@@ -6,8 +6,10 @@ import shadow_mobile from "../../assets/img/home_shadow_mobile.svg";
 import shadow from "../../assets/img/shadow.svg";
 import logo from "../../assets/img//logo.svg";
 import arrow from "../../assets/img/arrow_font.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function FindTeam() {
+    const navigate = useNavigate();
     return (
         <div className="FindTeam">
             <img
@@ -22,8 +24,22 @@ export default function FindTeam() {
                 единомышленников для совместных приключений, стратегий и побед.
             </p>
             <div>
-                <button>Найти команду</button>
-                <button>
+                <button
+                    onClick={() => {
+                        sessionStorage.getItem("token") != null
+                            ? navigate("/team")
+                            : navigate("/sing-up");
+                    }}
+                >
+                    Найти команду
+                </button>
+                <button
+                    onClick={() => {
+                        sessionStorage.getItem("token") != null
+                            ? navigate("/team")
+                            : navigate("/sing-up");
+                    }}
+                >
                     <img alt="Перейти" src={arrow} />
                 </button>
             </div>

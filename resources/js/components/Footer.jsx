@@ -4,10 +4,11 @@ import WhatsApp from "../assets/img/WhatsApp.svg";
 import GitHub from "../assets/img/GitHub.svg";
 import Telegram from "../assets/img/Telegram.svg";
 import VK from "../assets/img/VK.svg";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Footer() {
     const location = useLocation();
+    const navigate = useNavigate();
     return (
         <footer
             className={
@@ -35,11 +36,51 @@ export default function Footer() {
                     <p>Политика конфиденциальности</p>
                 </div>
                 <div className="news">
-                    <p>Новости</p>
-                    <p>Форум</p>
-                    <p>Команды</p>
-                    <p>Профиль</p>
-                    <p>Игры</p>
+                    <p
+                        onClick={() => {
+                            sessionStorage.getItem("token") != null
+                                ? navigate("./news")
+                                : navigate("./sing-up");
+                        }}
+                    >
+                        Новости
+                    </p>
+                    <p
+                        onClick={() => {
+                            sessionStorage.getItem("token") != null
+                                ? navigate("./forum")
+                                : navigate("./sing-up");
+                        }}
+                    >
+                        Форум
+                    </p>
+                    <p
+                        onClick={() => {
+                            sessionStorage.getItem("token") != null
+                                ? navigate("./team")
+                                : navigate("./sing-up");
+                        }}
+                    >
+                        Команды
+                    </p>
+                    <p
+                        onClick={() => {
+                            sessionStorage.getItem("token") != null
+                                ? navigate("./profile")
+                                : navigate("./sing-up");
+                        }}
+                    >
+                        Профиль
+                    </p>
+                    <p
+                        onClick={() => {
+                            sessionStorage.getItem("token") != null
+                                ? navigate("./game")
+                                : navigate("./sing-up");
+                        }}
+                    >
+                        Игры
+                    </p>
                 </div>
 
                 <div className="SocialNetworks">

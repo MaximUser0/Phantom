@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import back_image from "../assets/img/login_image.png";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setToken, setUser } from "../redux/slices/authSlice";
@@ -134,6 +135,10 @@ export default function SingUp() {
                     ""
                 )}
             </form>
+            <video id="back-video" autoPlay muted loop>
+                <source src="img/background.mp4" type="video/mp4" />
+            </video>
+            <img id="back-img" src={back_image} />
         </div>
     );
 }
